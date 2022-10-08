@@ -8,11 +8,10 @@ def addPara(textBoxText, para):
     splitPara = para.splitlines()
     lineCount = len(splitPara)
     counter = lineCount
-
     newPara = []
-    
     fontSize = Lines5
     characterLimit = Limit5
+    
     if len(splitPara) == 6:
         fontSize = Lines6
         characterLimit = Limit6
@@ -22,14 +21,14 @@ def addPara(textBoxText, para):
     
     if counter < 6:
         counter = lineCount
-        counter = checkLineCountB(splitPara, counter, Limit5)
+        counter = checkLineCount(splitPara, counter, Limit5)
 
         if counter >= 6:
             counter = 6
         
     if counter == 6:
         counter = lineCount
-        counter = checkLineCountB(splitPara, counter, Limit6)
+        counter = checkLineCount(splitPara, counter, Limit6)
         
         if counter > 6:
             counter = 7
@@ -42,18 +41,18 @@ def addPara(textBoxText, para):
         fontSize = Lines7
         characterLimit = Limit7
 
-    newVerse = []
     for line in splitPara:
         while len(line) > characterLimit:
             #lineCount = lineCount + 1
             index = line[:characterLimit].rindex(' ')
             line = line[:index] + '\n' + line[index:]
             break
-        newVerse.append(line)
+        newPara.append(line)
     
-    splitPara = newVerse
+    splitPara = newPara
 
     count = 0
+
     for line in splitPara:
         addLine(textBoxText, line, count, fontSize)
         count = 1
@@ -72,7 +71,7 @@ def addLine(textBoxText, line, count, fontSize):
     textBoxPara.text = line
 
 
-def checkLineCountB(splitPara, count, limit):
+def checkLineCount(splitPara, count, limit):
     check = 0
     for line in splitPara:
         if len(line) > limit:
@@ -116,20 +115,6 @@ Let me be singing when the evening comes
 pr1 = Presentation("MusicSlidesTemplate.pptx")
 
 slide1_register = pr1.slide_layouts[6]
-
-
-
-'''
-count = 0
-slide = pr1.slides.add_slide(slide1_register)
-textBox = slide.shapes.add_textbox(left, top, width, height)
-textBoxText = textBox.text_frame
-
-for line in newVerse:
-    addLine(textBoxText, line, count, fontSize)
-    count = 1
-'''
-
 
 for verse in song:
     slide = pr1.slides.add_slide(slide1_register)

@@ -112,7 +112,7 @@ Whatever may pass and whatever lies before me
 Let me be singing when the evening comes
 """)
 
-pr1 = Presentation("MusicSlidesTemplate.pptx")
+pr1 = Presentation("extra/MusicSlidesTemplate.pptx")
 
 slide1_register = pr1.slide_layouts[6]
 

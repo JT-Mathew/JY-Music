@@ -146,7 +146,7 @@ for song in allSongs:
     x = x + 1
 
 window = Tk()
-window.title("JY Australia Music Slides")
+window.title("JY Music Slides Generator")
 Application.getWindow(window)
 Application.saveSongList(fullSongList)
 app = Application(master=window)

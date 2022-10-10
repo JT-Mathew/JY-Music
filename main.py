@@ -1,102 +1,209 @@
-from pptx import Presentation 
+from pptx import *
 from tkinter import *
+from pptx.enum.text import PP_PARAGRAPH_ALIGNMENT, MSO_VERTICAL_ANCHOR
+from pptx.util import Cm, Pt
+from JYPop import Application
+import pandas as pd
 
-class Application(Frame):
+#adds verse to slide
+def addPara(textBoxText, para):
+    splitPara = para.splitlines()
+    lineCount = len(splitPara)
+    counter = lineCount
+    newPara = []
+    fontSize = Lines5
+    characterLimit = Limit5
     
-    #Init
-    def __init__(self, master=None):
-        Frame.__init__(self, master)
-
-        self.createWindow()
+    if len(splitPara) == 6:
+        fontSize = Lines6
+        characterLimit = Limit6
+    elif len(splitPara) > 6:
+        fontSize = Lines7
+        characterLimit = Limit7
     
+    if counter < 6:
+        counter = lineCount
+        counter = checkLineCount(splitPara, counter, Limit5)
 
-    #Create main window
-    def createWindow(self):
-        # create a Tk root window
+        if counter >= 6:
+            counter = 6
+        
+    if counter == 6:
+        counter = lineCount
+        counter = checkLineCount(splitPara, counter, Limit6)
+        
+        if counter > 6:
+            counter = 7
+        else:
+            fontSize = Lines6
+            characterLimit = Limit6
 
-        w = 500 # width for the Tk window
-        h = 500 # height for the Tk window
+    if counter > 6:
+        counter = lineCount
+        fontSize = Lines7
+        characterLimit = Limit7
 
-        # get screen width and height
-        ws = window.winfo_screenwidth() # width of the screen, to determine positioning of window
-        hs = window.winfo_screenheight() # height of the screen, to determine positioning of window
+    for line in splitPara:
+        while len(line) > characterLimit:
+            #lineCount = lineCount + 1
+            index = line[:characterLimit].rindex(' ')
+            line = line[:index] + '\n' + line[index:]
+            break
+        newPara.append(line)
+    
+    splitPara = newPara
 
-        # calculate x and y coordinates for middle of the screen
-        x = (ws/2) - (w/2)
-        y = (hs/2) - (h/2)
+    count = 0
 
-        # set the dimensions of the screen, w and h
-        # and where it is placed, x and y
-        window.geometry('%dx%d+%d+%d' % (w, h, x, y))
-        window.rowconfigure(0, minsize=450, weight=1)
-        window.columnconfigure(0, minsize=250, weight=1)
-        window.resizable(False, False)
+    for line in splitPara:
+        addLine(textBoxText, line, count, fontSize)
+        count = 1
 
-        frame_left = Frame(window, bd=2)
-        frame_right = Frame(window, bd=2)
-        frame_bottom = Frame(window, bd=2)
+#adds a line to slide
+def addLine(textBoxText, line, count, fontSize):
+    if count == 0:
+        textBoxPara = textBoxText.paragraphs[0]
+    else:
+        textBoxPara = textBoxText.add_paragraph()
+    textBoxPara.space_after = Pt(10)
+    textBoxPara.line_spacing = 0.8
+    textBoxPara.alignment = PP_PARAGRAPH_ALIGNMENT.CENTER
+    textBoxPara.font.name = 'Calibri (Body)'
+    textBoxPara.font.size = Pt(fontSize)
+    textBoxPara.text = line
 
-        #left column
-        self.search_var = StringVar()
-        self.search_var.trace("w", self.updateList)
+#checks the line count
+def checkLineCount(splitPara, count, limit):
+    check = 0
+    for line in splitPara:
+        if len(line) > limit:
+            if check == 0:
+                count = count + 1
+                check = 1
+            else:
+                check = 0
+    return count
 
-        frame_left_top = Frame(frame_left, bd=2)
+#to determine font size based on number of lines
+Lines5 = 60
+Lines6 = 56
+Lines7 = 51
 
-        self.entryLabel = Label(frame_left_top, text="    Filter:")
-        self.entry = Entry(frame_left_top, textvariable=self.search_var, width=13)
-        self.songListBoxFrom = Listbox(frame_left, width=25, height=15, selectmode = "single")
-        self.addSongBtn = Button(frame_left, text="Add Song", command=self.addSong)
+#character limit based on font size
+Limit5 = 30
+Limit6 = 33
+Limit7 = 38
 
-        self.entryLabel.grid(row=0, column=0, padx=10, pady=3)
-        self.entry.grid(row=0, column=1, padx=10, pady=3)
-        self.songListBoxFrom.grid(row=1, column=0, padx=10, pady=3)
-        self.addSongBtn.grid(row=2, column=0, padx=10, pady=3)
+#textbox dimensions and location
+left = Cm(2.42)
+top = Cm(2)
+width = Cm(29.01)
+height = Cm(14.5)
 
-        #right column
-        self.clearBtn = Button(frame_right, text="Clear List", command=self.clearList)
-        self.songListBoxTo = Listbox(frame_right, width=25, height=15, selectmode = "single")
-        self.removeSongBtn = Button(frame_right, text="Remove Song", command=self.removeSong)
+titleLeft = Cm(2.27)
+titleTop = Cm(4.48)
+titleWidth = Cm(29.21)
+titleHeight = Cm(9.68)
 
-        self.clearBtn.grid(row=0, column=0, padx=10, pady=8)
-        self.songListBoxTo.grid(row=1, column=0, padx=10, pady=3)
-        self.removeSongBtn.grid(row=2, column=0, padx=10, pady=3)
+#verses stored in seperate items in a list
+'''
+testSong = []
+testSong.append("""Bless the Lord
+Oh my soul, oh my soul
+Worship his holy name
+Sing like never before
+Oh my soul
+I’ll worship your holy name""")
+testSong.append("""The sun comes up, it’s a new day dawning
+It’s time to sing your song again
+Whatever may pass and whatever lies before me
+Let me be singing when the evening comes
+""")
+'''
 
-        frame_left_top.grid(row=0, column=0, sticky="w")
-        frame_left.grid(row=0, column=0, sticky="ns")
-        frame_right.grid(row=0, column=1, sticky="ns")
-        frame_bottom.grid(row=1, sticky="ns")
+df = pd.read_csv("extra/database.csv")
+try: 
+    url = f'https://docs.google.com/spreadsheets/d/1P3Qu1EQLgcQYWSZQwjY5OWmEnnJMvSSgLkasa6rMC6E/gviz/tq?tqx=out:csv'
+    df = pd.read_csv(url)
+except:
+    df = pd.read_csv("extra/database.csv")
 
-        #bottom column
+allSongs = df.values.tolist()
+fullSongList = df['Song'].tolist()
 
-        self.updateList()
-
-    def updateList(self, *args):
-        search_term = self.search_var.get()
-
-        # Just a generic list to populate the listbox
-        songList = ["Lord I need you", "10000 reasons", "Above All", "Days Gone By", "Holy Holy", "Hallelujiah", "Dreamer", "Amazing Grace", "Broken Vessels", "Oceans", "My Lighthouse", "New wine", "Still", "Reckless Love", "So Will I", "You Say"]
-
-        self.songListBoxFrom.delete(0, END)
-
-        for item in songList:
-                if search_term.lower() in item.lower():
-                    self.songListBoxFrom.insert(END, item)
-
-    def addSong(self):
-        self.songListBoxTo.insert(END, self.songListBoxFrom.get(ANCHOR))
-
-    def removeSong(self):
-        self.songListBoxTo.delete(ANCHOR)
-
-    def clearList(self):
-        self.songListBoxTo.delete(0, END)
-
-    def getSongList():
-        songList = ["Lord I need you", "10000 reasons", "Above All", "Days Gone By", "Holy Holy", "Hallelujiah", "Dreamer", "Amazing Grace", "Broken Vessels", "Oceans", "My Lighthouse", "New wine", "Still", "Reckless Love", "So Will I", "You Say"]
-        return songList
+x = 0
+for song in allSongs:
+    allSongs[x] = [x for x in song if str(x) != 'nan']
+    x = x + 1
 
 window = Tk()
 window.title("JY Australia Music Slides")
+Application.getWindow(window)
+Application.saveSongList(fullSongList)
 app = Application(master=window)
 app.mainloop()
+
+
+chosenSongs = Application.song_List
+savePath = Application.filepath
+
+"""
+songIndex = []
+for x in chosenSongs:
+    songIndex.append(fullSongList.index(x))
+"""
+
+#allSongs: database
+#fullSongList: list of all song names
+#chosenSongs: list of selected songs
+#songIndex: index of all the selected songs
+
+pr1 = Presentation("extra/MusicSlidesTemplate.pptx")
+
+slide1_register = pr1.slide_layouts[6]
+
+
+for song in chosenSongs:
+    titleSlide = pr1.slides.add_slide(slide1_register)
+    titleTextBox = titleSlide.shapes.add_textbox(titleLeft, titleTop, titleWidth, titleHeight)
+    titleBoxText = titleTextBox.text_frame
+    titleBoxText.vertical_anchor = MSO_VERTICAL_ANCHOR.MIDDLE
+    titleText = titleBoxText.paragraphs[0]
+
+    titleText.font.name = 'Calibri Light (Headings)'
+    titleText.font.size = Pt(80)
+    titleText.line_spacing = 0.9
+    titleText.alignment = PP_PARAGRAPH_ALIGNMENT.CENTER
+    
+
+    while len(song) > 15:
+        #lineCount = lineCount + 1
+        index = song[:15].rindex(' ')
+        song = song[:index] + '\n' + song[index:]
+        break
+
+    titleText.text = song
+
+    songIndex = fullSongList.index(song)
+    lyrics = allSongs[songIndex][1:]
+
+    for verse in lyrics:
+        slide = pr1.slides.add_slide(slide1_register)
+        textBox = slide.shapes.add_textbox(left, top, width, height)
+        textBoxText = textBox.text_frame
+        addPara(textBoxText, verse)
+
+    
+
+
+
+"""
+for verse in songs[0][1:]:
+    slide = pr1.slides.add_slide(slide1_register)
+    textBox = slide.shapes.add_textbox(left, top, width, height)
+    textBoxText = textBox.text_frame
+    addPara(textBoxText, verse)
+"""
+
+pr1.save('testPower.pptx')
 

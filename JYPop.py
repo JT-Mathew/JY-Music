@@ -73,6 +73,7 @@ class Application(Frame):
         #bottom column
         self.saveLbl = Label(frame_bottom, text="Title: ")
         self.saveEntry = Entry(frame_bottom, width=13)
+        self.saveEntry.insert(END, 'JY Music')
         self.saveBtn = Button(frame_bottom, text="Save Slides", command=self.getSongList)
 
         self.saveLbl.grid(row=0, column=0, padx=10, pady=3)

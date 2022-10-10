@@ -105,21 +105,6 @@ titleTop = Cm(4.48)
 titleWidth = Cm(29.21)
 titleHeight = Cm(9.68)
 
-#verses stored in seperate items in a list
-'''
-testSong = []
-testSong.append("""Bless the Lord
-Oh my soul, oh my soul
-Worship his holy name
-Sing like never before
-Oh my soul
-I’ll worship your holy name""")
-testSong.append("""The sun comes up, it’s a new day dawning
-It’s time to sing your song again
-Whatever may pass and whatever lies before me
-Let me be singing when the evening comes
-""")
-'''
 
 df = pd.read_csv("extra/database.csv")
 try: 
@@ -143,15 +128,8 @@ Application.saveSongList(fullSongList)
 app = Application(master=window)
 app.mainloop()
 
-
 chosenSongs = Application.song_List
 savePath = Application.filepath
-
-"""
-songIndex = []
-for x in chosenSongs:
-    songIndex.append(fullSongList.index(x))
-"""
 
 #allSongs: database
 #fullSongList: list of all song names
@@ -161,6 +139,27 @@ for x in chosenSongs:
 pr1 = Presentation("extra/MusicSlidesTemplate.pptx")
 
 slide1_register = pr1.slide_layouts[6]
+
+startSlide = pr1.slides.add_slide(slide1_register)
+startTextBox = startSlide.shapes.add_textbox(titleLeft, titleTop, titleWidth, titleHeight)
+startBoxText = startTextBox.text_frame
+startBoxText.vertical_anchor = MSO_VERTICAL_ANCHOR.MIDDLE
+startText = startBoxText.paragraphs[0]
+
+startText.font.name = 'Calibri Light (Headings)'
+startText.font.size = Pt(80)
+startText.line_spacing = 0.9
+startText.alignment = PP_PARAGRAPH_ALIGNMENT.CENTER
+
+presentationName = Application.presentationName
+tempName = presentationName
+
+while len(presentationName) > 25:
+    index = presentationName[:25].rindex(' ')
+    tempName = presentationName[:index] + '\n' + presentationName[index:]
+    break
+
+startText.text = tempName
 
 
 for song in chosenSongs:
@@ -175,14 +174,15 @@ for song in chosenSongs:
     titleText.line_spacing = 0.9
     titleText.alignment = PP_PARAGRAPH_ALIGNMENT.CENTER
     
+    songName = song
 
-    while len(song) > 15:
+    while len(song) > 25:
         #lineCount = lineCount + 1
-        index = song[:15].rindex(' ')
-        song = song[:index] + '\n' + song[index:]
+        index = song[:25].rindex(' ')
+        songName = song[:index] + '\n' + song[index:]
         break
 
-    titleText.text = song
+    titleText.text = songName
 
     songIndex = fullSongList.index(song)
     lyrics = allSongs[songIndex][1:]
@@ -193,17 +193,5 @@ for song in chosenSongs:
         textBoxText = textBox.text_frame
         addPara(textBoxText, verse)
 
-    
-
-
-
-"""
-for verse in songs[0][1:]:
-    slide = pr1.slides.add_slide(slide1_register)
-    textBox = slide.shapes.add_textbox(left, top, width, height)
-    textBoxText = textBox.text_frame
-    addPara(textBoxText, verse)
-"""
-
-pr1.save('testPower.pptx')
+pr1.save(savePath)
 

@@ -8,6 +8,7 @@ class Application(Frame):
     window = 1
     save = 0
     filepath = ""
+    presentationName = ""
 
     #Init
     def __init__(self, master=None):
@@ -70,9 +71,13 @@ class Application(Frame):
         self.removeSongBtn.grid(row=2, column=0, padx=10, pady=3)
 
         #bottom column
-        self.saveBtn = Button(frame_bottom, text="Create Slides", command=self.getSongList)
+        self.saveLbl = Label(frame_bottom, text="Title: ")
+        self.saveEntry = Entry(frame_bottom, width=13)
+        self.saveBtn = Button(frame_bottom, text="Save Slides", command=self.getSongList)
 
-        self.saveBtn.grid(row=0, column=0, padx=10, pady=8)
+        self.saveLbl.grid(row=0, column=0, padx=10, pady=3)
+        self.saveEntry.grid(row=0, column=1, padx=10, pady=3)
+        self.saveBtn.grid(row=0, column=2, padx=10, pady=8)
 
         frame_top.grid(row=0, sticky="ns")
         frame_left_top.grid(row=0, column=0, sticky="w")
@@ -111,6 +116,7 @@ class Application(Frame):
 
         Application.saveFile()
         if Application.save == 1:
+            Application.presentationName = self.saveEntry.get()
             Application.window.destroy()
 
     def saveFile():

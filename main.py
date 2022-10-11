@@ -138,9 +138,9 @@ img_left = Cm(16.23)
 img_top = Cm(17.37)
 img_height = Cm(1.4)
 
-indexBoxLeft = [Cm(2.63), Cm(17.23)]
+indexBoxLeft = [Cm(2.48), Cm(17.08)]
 indexBoxTop = [Cm(3.55), Cm(4.77), Cm(6), Cm(7.23), Cm(8.45), Cm(9.68), Cm(10.9), Cm(12.13), Cm(13.36), Cm(14.58)]
-indexBoxWidth = Cm(14)
+indexBoxWidth = Cm(14.3)
 indexBoxHeight = Cm(1.04)
 
 df = pd.read_csv("extra/database.csv")
@@ -304,9 +304,9 @@ for x in indexSlideIndex:
                 clickIndex.target_slide = pr1.slides[presIndex[indexIndex]]
                 clickIndex.action
                 if indexIndex <9:
-                    indexText.text = str(indexIndex + 1) + '.   ' + chosenSongs[indexIndex]
+                    indexText.text = str(indexIndex + 1) + '.    ' + chosenSongs[indexIndex]
                 elif indexIndex <99:
-                    indexText.text = str(indexIndex + 1) + '. ' + chosenSongs[indexIndex]
+                    indexText.text = str(indexIndex + 1) + '.  ' + chosenSongs[indexIndex]
                 else:
                     indexText.text = str(indexIndex + 1) + '.' + chosenSongs[indexIndex]
 

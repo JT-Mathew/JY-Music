@@ -7,6 +7,7 @@ from pptx.util import Cm, Pt
 from JYPop import Application
 import pandas as pd
 import math
+import os.path
 
 #adds verse to slide
 def addPara(textBoxText, para):
@@ -127,7 +128,7 @@ indexTop = Cm(0.54)
 indexWidth = Cm(6.22)
 indexHeight = Cm(2.13)
 
-img_path = 'extra/JY-Icon-White.png'
+jy_icon_path = os.path.join("extra", "JY-Icon-White.png")
 
 img_title_left = Cm(15.61)
 img_title_top = Cm(11.96)
@@ -197,7 +198,7 @@ while len(presentationName) > 25:
 
 startText.text = tempName
 
-pic = startSlide.shapes.add_picture(img_path, img_title_left, img_title_top, title_img_height)
+pic = startSlide.shapes.add_picture(jy_icon_path, img_title_left, img_title_top, title_img_height)
 
 subTextBox = startSlide.shapes.add_textbox(subTitleLeft, subTitleTop, subTitleWidth, subTitleHeight)
 subBoxText = subTextBox.text_frame
@@ -231,7 +232,7 @@ for x in range(indexPages):
 
     indexTitleText.text = "Index"
 
-    pic = indexSlide.shapes.add_picture(img_path, img_left, img_top, img_height)
+    pic = indexSlide.shapes.add_picture(jy_icon_path, img_left, img_top, img_height)
     click = pic.click_action
     click.target_slide = pr1.slides[0]
     click.action
@@ -260,7 +261,7 @@ for song in chosenSongs:
 
     hyperIndex = math.floor(chosenSongs.index(song)/20) + 1
 
-    pic = titleSlide.shapes.add_picture(img_path, img_left, img_top, img_height)
+    pic = titleSlide.shapes.add_picture(jy_icon_path, img_left, img_top, img_height)
     click = pic.click_action
     click.target_slide = pr1.slides[hyperIndex]
     click.action
@@ -276,7 +277,7 @@ for song in chosenSongs:
         textBoxText = textBox.text_frame
         textBoxText.vertical_anchor = MSO_VERTICAL_ANCHOR.MIDDLE
         addPara(textBoxText, verse)
-        pic = slide.shapes.add_picture(img_path, img_left, img_top, img_height)
+        pic = slide.shapes.add_picture(jy_icon_path, img_left, img_top, img_height)
         click = pic.click_action
         click.target_slide = pr1.slides[0]
         click.action

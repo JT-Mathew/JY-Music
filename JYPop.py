@@ -1,6 +1,8 @@
 from tkinter.filedialog import asksaveasfilename
 from pptx import Presentation 
 from tkinter import *
+from PIL import ImageTk, Image
+import os.path
 
 class Application(Frame):
     full_Song_List = []
@@ -9,6 +11,7 @@ class Application(Frame):
     save = 0
     filepath = ""
     presentationName = ""
+    jy_image_path = os.path.join("extra", "JY-Icon-White.png")
 
     #Init
     def __init__(self, master=None):
@@ -45,6 +48,8 @@ class Application(Frame):
         frame_right = Frame(frame_top, bd=2)
         frame_bottom = Frame(Application.window, bd=2)
 
+        img = ImageTk.PhotoImage(Image.open(Application.jy_image_path))
+
         #left column
         self.search_var = StringVar()
         self.search_var.trace("w", self.updateList)
@@ -70,7 +75,7 @@ class Application(Frame):
         self.songListBoxTo.grid(row=1, column=0, padx=10, pady=3)
         self.removeSongBtn.grid(row=2, column=0, padx=10, pady=3)
 
-        #bottom column
+        #bottom row
         self.saveLbl = Label(frame_bottom, text="Title: ")
         self.saveEntry = Entry(frame_bottom, width=13)
         self.saveEntry.insert(END, 'JY Music')
@@ -80,6 +85,7 @@ class Application(Frame):
         self.saveEntry.grid(row=0, column=1, padx=10, pady=3)
         self.saveBtn.grid(row=0, column=2, padx=10, pady=8)
 
+        #frames
         frame_top.grid(row=0, sticky="ns")
         frame_left_top.grid(row=0, column=0, sticky="w")
         frame_left.grid(row=0, column=0, sticky="ns")

@@ -143,12 +143,12 @@ indexBoxTop = [Cm(3.55), Cm(4.77), Cm(6), Cm(7.23), Cm(8.45), Cm(9.68), Cm(10.9)
 indexBoxWidth = Cm(14.3)
 indexBoxHeight = Cm(1.04)
 
-df = pd.read_csv("extra/database.csv")
+df = pd.read_csv(os.path.join("extra", "database.csv"))
 try: 
     url = f'https://docs.google.com/spreadsheets/d/1P3Qu1EQLgcQYWSZQwjY5OWmEnnJMvSSgLkasa6rMC6E/gviz/tq?tqx=out:csv'
     df = pd.read_csv(url)
 except:
-    df = pd.read_csv("extra/database.csv")
+    df = pd.read_csv(os.path.join("extra", "database.csv"))
 
 allSongs = df.values.tolist()
 fullSongList = df['Song'].tolist()
@@ -173,7 +173,7 @@ savePath = Application.filepath
 #chosenSongs: list of selected songs
 #songIndex: index of all the selected songs
 
-pr1 = Presentation("extra/MusicSlidesTemplate.pptx")
+pr1 = Presentation(os.path.join("extra", "MusicSlidesTemplate.pptx"))
 
 slide1_register = pr1.slide_layouts[6]
 

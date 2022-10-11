@@ -138,9 +138,9 @@ img_left = Cm(16.23)
 img_top = Cm(17.37)
 img_height = Cm(1.4)
 
-indexBoxLeft = [Cm(2.93), Cm(16.93)]
+indexBoxLeft = [Cm(2.63), Cm(17.23)]
 indexBoxTop = [Cm(3.55), Cm(4.77), Cm(6), Cm(7.23), Cm(8.45), Cm(9.68), Cm(10.9), Cm(12.13), Cm(13.36), Cm(14.58)]
-indexBoxWidth = Cm(13.59)
+indexBoxWidth = Cm(14)
 indexBoxHeight = Cm(1.04)
 
 df = pd.read_csv("extra/database.csv")
@@ -248,7 +248,7 @@ for song in chosenSongs:
     titleText.font.size = Pt(80)
     titleText.line_spacing = 0.9
     titleText.alignment = PP_PARAGRAPH_ALIGNMENT.CENTER
-    
+
     songName = song
 
     while len(song) > 25:
@@ -279,7 +279,7 @@ for song in chosenSongs:
         addPara(textBoxText, verse)
         pic = slide.shapes.add_picture(jy_icon_path, img_left, img_top, img_height)
         click = pic.click_action
-        click.target_slide = pr1.slides[0]
+        click.target_slide = pr1.slides[hyperIndex]
         click.action
 
 indexIndex = 0
@@ -304,9 +304,9 @@ for x in indexSlideIndex:
                 clickIndex.target_slide = pr1.slides[presIndex[indexIndex]]
                 clickIndex.action
                 if indexIndex <9:
-                    indexText.text = str(indexIndex + 1) + '.    ' + chosenSongs[indexIndex]
+                    indexText.text = str(indexIndex + 1) + '.   ' + chosenSongs[indexIndex]
                 elif indexIndex <99:
-                    indexText.text = str(indexIndex + 1) + '.  ' + chosenSongs[indexIndex]
+                    indexText.text = str(indexIndex + 1) + '. ' + chosenSongs[indexIndex]
                 else:
                     indexText.text = str(indexIndex + 1) + '.' + chosenSongs[indexIndex]
 

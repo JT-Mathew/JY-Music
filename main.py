@@ -281,8 +281,6 @@ for song in chosenSongs:
         click.target_slide = pr1.slides[0]
         click.action
 
-print(presIndex)
-
 indexIndex = 0
 for x in indexSlideIndex:
     for y in indexBoxLeft:

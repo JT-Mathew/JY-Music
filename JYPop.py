@@ -60,7 +60,7 @@ class Application(Frame):
 
         self.entryLabel = Label(frame_left_top, text="Filter:")
         self.entry = Entry(frame_left_top, textvariable=self.search_var, width=13)
-        self.songListBoxFrom = Listbox(frame_left, width=25, height=15, selectmode = "single")
+        self.songListBoxFrom = Listbox(frame_left, width=25, height=15, selectmode = "multiple")
         self.addSongBtn = Button(frame_left, text="Add Song", command=self.addSong)
         self.addAllBtn = Button(frame_left, text="Add All", command=self.addAll)
 
@@ -137,7 +137,10 @@ class Application(Frame):
                     self.songListBoxTo.insert(END, item)
 
     def addSong(self):
-        self.songListBoxTo.insert(END, self.songListBoxFrom.get(ANCHOR))
+        for x in self.songListBoxFrom.curselection():
+            self.songListBoxTo.insert(END, self.songListBoxFrom.get(x))
+        
+        #self.songListBoxTo.insert(END, self.songListBoxFrom.get(ANCHOR))
 
     def addAll(self):
         self.removeList()

@@ -1,9 +1,12 @@
 from pptx import *
 from tkinter import *
 from pptx.enum.text import PP_PARAGRAPH_ALIGNMENT, MSO_VERTICAL_ANCHOR
+from pptx.enum.shapes import MSO_SHAPE_TYPE
+from pptx.dml.color import RGBColor
 from pptx.util import Cm, Pt
 from JYPop import Application
 import pandas as pd
+import math
 
 #adds verse to slide
 def addPara(textBoxText, para):
@@ -119,16 +122,25 @@ subTitleTop = Cm(14.97)
 subTitleWidth = Cm(25.4)
 subTitleHeight = Cm(1.25)
 
+indexLeft = Cm(13.75)
+indexTop = Cm(0.54)
+indexWidth = Cm(6.22)
+indexHeight = Cm(2.13)
+
 img_path = 'extra/JY-Icon-White.png'
 
-title_img_height = Cm(2.64)
 img_title_left = Cm(15.61)
 img_title_top = Cm(11.96)
+title_img_height = Cm(2.64)
 
-img_height = Cm(1.4)
 img_left = Cm(16.23)
 img_top = Cm(17.37)
+img_height = Cm(1.4)
 
+indexBoxLeft = [Cm(2.93), Cm(16.93)]
+indexBoxTop = [Cm(3.55), Cm(4.77), Cm(6), Cm(7.23), Cm(8.45), Cm(9.68), Cm(10.9), Cm(12.13), Cm(13.36), Cm(14.58)]
+indexBoxWidth = Cm(13.59)
+indexBoxHeight = Cm(1.04)
 
 df = pd.read_csv("extra/database.csv")
 try: 
@@ -187,8 +199,6 @@ startText.text = tempName
 
 pic = startSlide.shapes.add_picture(img_path, img_title_left, img_title_top, title_img_height)
 
-
-
 subTextBox = startSlide.shapes.add_textbox(subTitleLeft, subTitleTop, subTitleWidth, subTitleHeight)
 subBoxText = subTextBox.text_frame
 subBoxText.vertical_anchor = MSO_VERTICAL_ANCHOR.MIDDLE
@@ -201,7 +211,30 @@ subText.alignment = PP_PARAGRAPH_ALIGNMENT.CENTER
 
 subText.text = "Jesus Youth Australia"
 
+indexPages = math.ceil(len(chosenSongs)/20)
+indexSlideIndex = []
+presIndex = []
 
+for x in range(indexPages):
+    indexSlide = pr1.slides.add_slide(slide1_register)
+    indexSlideIndex.append(indexSlide)
+
+    indexTitleBox = indexSlide.shapes.add_textbox(indexLeft, indexTop, indexWidth, indexHeight)
+    indexTitleTF = indexTitleBox.text_frame
+    indexTitleTF.vertical_anchor = MSO_VERTICAL_ANCHOR.MIDDLE
+    indexTitleText = indexTitleTF.paragraphs[0]
+
+    indexTitleText.font.name = 'Calibri Light (Headings)'
+    indexTitleText.font.size = Pt(80)
+    indexTitleText.line_spacing = 0.9
+    indexTitleText.alignment = PP_PARAGRAPH_ALIGNMENT.CENTER
+
+    indexTitleText.text = "Index"
+
+    pic = indexSlide.shapes.add_picture(img_path, img_left, img_top, img_height)
+    click = pic.click_action
+    click.target_slide = pr1.slides[0]
+    click.action
 
 for song in chosenSongs:
     titleSlide = pr1.slides.add_slide(slide1_register)
@@ -225,13 +258,17 @@ for song in chosenSongs:
 
     titleText.text = songName
 
+    hyperIndex = math.floor(chosenSongs.index(song)/20) + 1
+
     pic = titleSlide.shapes.add_picture(img_path, img_left, img_top, img_height)
     click = pic.click_action
-    click.target_slide = pr1.slides[0]
+    click.target_slide = pr1.slides[hyperIndex]
     click.action
 
     songIndex = fullSongList.index(song)
     lyrics = allSongs[songIndex][1:]
+
+    presIndex.append(pr1.slides.index(titleSlide))
 
     for verse in lyrics:
         slide = pr1.slides.add_slide(slide1_register)
@@ -244,5 +281,42 @@ for song in chosenSongs:
         click.target_slide = pr1.slides[0]
         click.action
 
-pr1.save(savePath)
+print(presIndex)
+
+indexIndex = 0
+for x in indexSlideIndex:
+    for y in indexBoxLeft:
+        for z in indexBoxTop:
+            indexRect = x.shapes.add_shape(MSO_SHAPE_TYPE.AUTO_SHAPE, y, z, indexBoxWidth, indexBoxHeight)
+            
+            indexRect.fill.background()
+            indexRect.line.fill.background()
+            
+            rectText = indexRect.text_frame
+            rectText.vertical_anchor = MSO_VERTICAL_ANCHOR.MIDDLE
+            indexText = rectText.paragraphs[0]            
+
+            indexText.font.name = 'Calibri (Body)'
+            indexText.font.size = Pt(24)
+            indexText.alignment = PP_PARAGRAPH_ALIGNMENT.LEFT
+
+            try:
+                clickIndex = indexRect.click_action
+                clickIndex.target_slide = pr1.slides[presIndex[indexIndex]]
+                clickIndex.action
+                if indexIndex <9:
+                    indexText.text = str(indexIndex + 1) + '.    ' + chosenSongs[indexIndex]
+                elif indexIndex <99:
+                    indexText.text = str(indexIndex + 1) + '.  ' + chosenSongs[indexIndex]
+                else:
+                    indexText.text = str(indexIndex + 1) + '.' + chosenSongs[indexIndex]
+
+            except:
+                pass
+
+            indexIndex = indexIndex + 1
+
+
+if Application.save == 1:
+    pr1.save(savePath)
 

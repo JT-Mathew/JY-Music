@@ -92,6 +92,34 @@ def checkLineCount(splitPara, count, limit):
     count = round(count)
     return count
 
+#adds a jy icon link
+def add_hyper_jy(pres, slide, link):
+    pic = slide.shapes.add_picture(jy_icon_path, img_left, img_top, img_height)
+    add_link(pres, pic, link)
+
+#adds a link to a shape
+def add_link(pres, shape, link):
+    click = shape.click_action
+    click.target_slide = pres.slides[link]
+    click.action
+
+def add_Text_Frame(slide, left, top, width, height, vAlign):
+    textBox = slide.shapes.add_textbox(left, top, width, height)
+    textFrame = textBox.text_frame
+    textFrame.vertical_anchor = vAlign
+    
+    return textFrame
+
+def add_Heading(textFrame, fontName, fontSize, lineSpacing, hAlign, text):
+    textF_text = textFrame.paragraphs[0]
+    textF_text.font.name = fontName
+    textF_text.font.size = Pt(fontSize)
+    textF_text.line_spacing = lineSpacing
+    textF_text.alignment = hAlign
+
+    textF_text.text = text
+
+
 #to determine font size based on number of lines
 Lines5 = 60
 Lines6 = 56
@@ -103,30 +131,17 @@ Limit6 = 33
 Limit7 = 38
 
 #textbox dimensions and location
-left = Cm(2.42)
-top = Cm(2)
-width = Cm(29.01)
-height = Cm(14.5)
+
 
 headerLeft = Cm(4.23)
 headerTop = Cm(3.12)
 headerWidth = Cm(25.4)
 headerHeight = Cm(6.63)
 
-titleLeft = Cm(2.27)
-titleTop = Cm(4.48)
-titleWidth = Cm(29.21)
-titleHeight = Cm(9.68)
-
-subTitleLeft = Cm(4.23)
-subTitleTop = Cm(14.97)
-subTitleWidth = Cm(25.4)
-subTitleHeight = Cm(1.25)
-
-indexLeft = Cm(13.75)
-indexTop = Cm(0.54)
-indexWidth = Cm(6.22)
-indexHeight = Cm(2.13)
+subsongTitles_left = Cm(4.23)
+subsongTitles_top = Cm(14.97)
+subsongTitles_width = Cm(25.4)
+subsongTitles_height = Cm(1.25)
 
 jy_icon_path = os.path.join("extra", "JY-Icon-White.png")
 
@@ -142,6 +157,35 @@ indexBoxLeft = [Cm(2.48), Cm(17.08)]
 indexBoxTop = [Cm(3.55), Cm(4.77), Cm(6), Cm(7.23), Cm(8.45), Cm(9.68), Cm(10.9), Cm(12.13), Cm(13.36), Cm(14.58)]
 indexBoxWidth = Cm(14.3)
 indexBoxHeight = Cm(1.04)
+
+indexHeading_fontName = 'Calibri Light (Headings)'
+indexHeading_fontSize = 48
+indexHeading_lineSpacing = 0.9
+indexHeading_HAlign = PP_PARAGRAPH_ALIGNMENT.CENTER
+indexHeading_VAlign = MSO_VERTICAL_ANCHOR.MIDDLE
+indexHeading_text = "Index"
+indexHeading_left = Cm(13.75)
+indexHeading_top = Cm(0.54)
+indexHeading_width = Cm(6.22)
+indexHeading_height = Cm(2.13)
+
+songTitles_fontName = 'Calibri Light (Headings)'
+songTitles_fontSize = 80
+songTitles_lineSpacing = 0.9
+songTitles_HAlign = PP_PARAGRAPH_ALIGNMENT.CENTER
+songTitles_VAlign = MSO_VERTICAL_ANCHOR.MIDDLE
+songTitles_left = Cm(2.27)
+songTitles_top = Cm(4.48)
+songTitles_width = Cm(29.21)
+songTitles_height = Cm(9.68)
+
+verse_fontName = 'Calibri (Body)'
+verse_HAlign = PP_PARAGRAPH_ALIGNMENT.CENTER
+verse_VAlign = MSO_VERTICAL_ANCHOR.MIDDLE
+verse_left = Cm(2.42)
+verse_top = Cm(2)
+verse_width = Cm(29.01)
+verse_height = Cm(14.5)
 
 df = pd.read_csv(os.path.join("extra", "database.csv"))
 try: 
@@ -200,7 +244,7 @@ startText.text = tempName
 
 pic = startSlide.shapes.add_picture(jy_icon_path, img_title_left, img_title_top, title_img_height)
 
-subTextBox = startSlide.shapes.add_textbox(subTitleLeft, subTitleTop, subTitleWidth, subTitleHeight)
+subTextBox = startSlide.shapes.add_textbox(subsongTitles_left, subsongTitles_top, subsongTitles_width, subsongTitles_height)
 subBoxText = subTextBox.text_frame
 subBoxText.vertical_anchor = MSO_VERTICAL_ANCHOR.MIDDLE
 subText = subBoxText.paragraphs[0]
@@ -220,67 +264,35 @@ for x in range(indexPages):
     indexSlide = pr1.slides.add_slide(slide1_register)
     indexSlideIndex.append(indexSlide)
 
-    indexTitleBox = indexSlide.shapes.add_textbox(indexLeft, indexTop, indexWidth, indexHeight)
-    indexTitleTF = indexTitleBox.text_frame
-    indexTitleTF.vertical_anchor = MSO_VERTICAL_ANCHOR.MIDDLE
-    indexTitleText = indexTitleTF.paragraphs[0]
+    indexTitleTF = add_Text_Frame(indexSlide, indexHeading_left, indexHeading_top, indexHeading_width, indexHeading_height, indexHeading_VAlign)
+    add_Heading(indexTitleTF, indexHeading_fontName, indexHeading_fontSize, indexHeading_lineSpacing, indexHeading_HAlign, indexHeading_text)
+    add_hyper_jy(pr1, indexSlide, 0)
 
-    indexTitleText.font.name = 'Calibri Light (Headings)'
-    indexTitleText.font.size = Pt(80)
-    indexTitleText.line_spacing = 0.9
-    indexTitleText.alignment = PP_PARAGRAPH_ALIGNMENT.CENTER
-
-    indexTitleText.text = "Index"
-
-    pic = indexSlide.shapes.add_picture(jy_icon_path, img_left, img_top, img_height)
-    click = pic.click_action
-    click.target_slide = pr1.slides[0]
-    click.action
 
 for song in chosenSongs:
     titleSlide = pr1.slides.add_slide(slide1_register)
-    titleTextBox = titleSlide.shapes.add_textbox(titleLeft, titleTop, titleWidth, titleHeight)
-    titleBoxText = titleTextBox.text_frame
-    titleBoxText.vertical_anchor = MSO_VERTICAL_ANCHOR.MIDDLE
-    titleText = titleBoxText.paragraphs[0]
-
-    titleText.font.name = 'Calibri Light (Headings)'
-    titleText.font.size = Pt(80)
-    titleText.line_spacing = 0.9
-    titleText.alignment = PP_PARAGRAPH_ALIGNMENT.CENTER
-
+    
+    hyperIndex = math.floor(chosenSongs.index(song)/20) + 1
     songName = song
-
     while len(song) > 25:
         #lineCount = lineCount + 1
         index = song[:25].rindex(' ')
         songName = song[:index] + '\n' + song[index:]
         break
-
-    titleText.text = songName
-
-    hyperIndex = math.floor(chosenSongs.index(song)/20) + 1
-
-    pic = titleSlide.shapes.add_picture(jy_icon_path, img_left, img_top, img_height)
-    click = pic.click_action
-    click.target_slide = pr1.slides[hyperIndex]
-    click.action
-
     songIndex = fullSongList.index(song)
     lyrics = allSongs[songIndex][1:]
 
-    presIndex.append(pr1.slides.index(titleSlide))
+    songTitleTF = add_Text_Frame(titleSlide, songTitles_left, songTitles_top, songTitles_width, songTitles_height, songTitles_VAlign)
+    add_Heading(songTitleTF, songTitles_fontName, songTitles_fontSize, songTitles_lineSpacing, songTitles_HAlign, songName)    
+    add_hyper_jy(pr1, titleSlide, hyperIndex)
 
+    presIndex.append(pr1.slides.index(titleSlide))
     for verse in lyrics:
-        slide = pr1.slides.add_slide(slide1_register)
-        textBox = slide.shapes.add_textbox(left, top, width, height)
-        textBoxText = textBox.text_frame
-        textBoxText.vertical_anchor = MSO_VERTICAL_ANCHOR.MIDDLE
-        addPara(textBoxText, verse)
-        pic = slide.shapes.add_picture(jy_icon_path, img_left, img_top, img_height)
-        click = pic.click_action
-        click.target_slide = pr1.slides[hyperIndex]
-        click.action
+        verseSlide = pr1.slides.add_slide(slide1_register)
+        
+        verseTf = add_Text_Frame(verseSlide, verse_left, verse_top, verse_width, verse_height, verse_VAlign)
+        add_hyper_jy(pr1, verseSlide, hyperIndex)
+        addPara(verseTf, verse)
 
 indexIndex = 0
 for x in indexSlideIndex:
@@ -300,16 +312,14 @@ for x in indexSlideIndex:
             indexText.alignment = PP_PARAGRAPH_ALIGNMENT.LEFT
 
             try:
-                clickIndex = indexRect.click_action
-                clickIndex.target_slide = pr1.slides[presIndex[indexIndex]]
-                clickIndex.action
+                add_link(pr1, indexRect, presIndex[indexIndex])
+
                 if indexIndex <9:
                     indexText.text = str(indexIndex + 1) + '.    ' + chosenSongs[indexIndex]
                 elif indexIndex <99:
                     indexText.text = str(indexIndex + 1) + '.  ' + chosenSongs[indexIndex]
                 else:
                     indexText.text = str(indexIndex + 1) + '.' + chosenSongs[indexIndex]
-
             except:
                 pass
 

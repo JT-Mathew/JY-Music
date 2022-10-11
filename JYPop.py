@@ -1,3 +1,4 @@
+from re import search
 from tkinter.filedialog import asksaveasfilename
 from pptx import Presentation 
 from tkinter import *
@@ -7,6 +8,7 @@ import os.path
 class Application(Frame):
     full_Song_List = []
     song_List = []
+    list2 = []
     window = 1
     save = 0
     filepath = ""
@@ -48,7 +50,7 @@ class Application(Frame):
         frame_right = Frame(frame_top, bd=2)
         frame_bottom = Frame(Application.window, bd=2)
 
-        img = ImageTk.PhotoImage(Image.open(Application.jy_image_path))
+        #img = ImageTk.PhotoImage(Image.open(Application.jy_image_path))
 
         #left column
         self.search_var = StringVar()
@@ -56,24 +58,35 @@ class Application(Frame):
 
         frame_left_top = Frame(frame_left, bd=2)
 
-        self.entryLabel = Label(frame_left_top, text="    Filter:")
+        self.entryLabel = Label(frame_left_top, text="Filter:")
         self.entry = Entry(frame_left_top, textvariable=self.search_var, width=13)
         self.songListBoxFrom = Listbox(frame_left, width=25, height=15, selectmode = "single")
         self.addSongBtn = Button(frame_left, text="Add Song", command=self.addSong)
+        self.addAllBtn = Button(frame_left, text="Add All", command=self.addAll)
 
         self.entryLabel.grid(row=0, column=0, padx=10, pady=3)
         self.entry.grid(row=0, column=1, padx=10, pady=3)
         self.songListBoxFrom.grid(row=1, column=0, padx=10, pady=3)
         self.addSongBtn.grid(row=2, column=0, padx=10, pady=3)
+        self.addAllBtn.grid(row=3, column=0, padx=10, pady=3)
 
         #right column
-        self.clearBtn = Button(frame_right, text="Clear List", command=self.clearList)
+        self.search_var2 = StringVar()
+        self.search_var2.trace("w", self.updateList2)
+
+        frame_right_top = Frame(frame_right, bd=2)
+
+        self.entryLabel2 = Label(frame_right_top, text="Filter:")
+        self.entry2 = Entry(frame_right_top, textvariable=self.search_var2, width=13)
         self.songListBoxTo = Listbox(frame_right, width=25, height=15, selectmode = "single")
         self.removeSongBtn = Button(frame_right, text="Remove Song", command=self.removeSong)
+        self.removeBtn = Button(frame_right, text="Remove All", command=self.removeList)
 
-        self.clearBtn.grid(row=0, column=0, padx=10, pady=8)
+        self.entryLabel2.grid(row=0, column=0, padx=10, pady=3)
+        self.entry2.grid(row=0, column=1, padx=10, pady=3)
         self.songListBoxTo.grid(row=1, column=0, padx=10, pady=3)
         self.removeSongBtn.grid(row=2, column=0, padx=10, pady=3)
+        self.removeBtn.grid(row=3, column=0, padx=10, pady=8)
 
         #bottom row
         self.saveLbl = Label(frame_bottom, text="Title: ")
@@ -88,11 +101,13 @@ class Application(Frame):
         #frames
         frame_top.grid(row=0, sticky="ns")
         frame_left_top.grid(row=0, column=0, sticky="w")
+        frame_right_top.grid(row=0, column=0, sticky="w")
         frame_left.grid(row=0, column=0, sticky="ns")
         frame_right.grid(row=0, column=1, sticky="ns")
         frame_bottom.grid(row=1, sticky="ns")
         
         self.updateList()
+        self.updateList2()
 
     def updateList(self, *args):
         search_term = self.search_var.get()
@@ -104,14 +119,35 @@ class Application(Frame):
         for item in Application.full_Song_List:
                 if search_term.lower() in item.lower():
                     self.songListBoxFrom.insert(END, item)
+    
+    def updateList2(self, *args):
+        search_term2 = self.search_var2.get()
+
+        # Just a generic list to populate the listbox
+        for item in self.songListBoxTo.get(0, END):
+            if item in Application.list2:
+                pass
+            else:
+                Application.list2.append(item)
+
+        self.songListBoxTo.delete(0, END)
+
+        for item in Application.list2:
+                if search_term2.lower() in item.lower():
+                    self.songListBoxTo.insert(END, item)
 
     def addSong(self):
         self.songListBoxTo.insert(END, self.songListBoxFrom.get(ANCHOR))
 
+    def addAll(self):
+        self.removeList()
+        for item in Application.full_Song_List:
+            self.songListBoxTo.insert(END, item)
+
     def removeSong(self):
         self.songListBoxTo.delete(ANCHOR)
 
-    def clearList(self):
+    def removeList(self):
         self.songListBoxTo.delete(0, END)
 
     def saveSongList(songList):

@@ -139,7 +139,7 @@ class Application(Frame):
     def addSong(self):
         for x in self.songListBoxFrom.curselection():
             self.songListBoxTo.insert(END, self.songListBoxFrom.get(x))
-        
+        self.songListBoxFrom.selection_clear(0, END)
         #self.songListBoxTo.insert(END, self.songListBoxFrom.get(ANCHOR))
 
     def addAll(self):

@@ -9,6 +9,8 @@ import pandas as pd
 import math
 import os.path
 
+#Merina gave some good feedback, this is her credit.
+
 #adds verse to slide
 def addPara(textBoxText, para):
     splitPara = para.splitlines()
@@ -291,8 +293,8 @@ for song in chosenSongs:
         verseSlide = pr1.slides.add_slide(slide1_register)
         
         verseTf = add_Text_Frame(verseSlide, verse_left, verse_top, verse_width, verse_height, verse_VAlign)
-        add_hyper_jy(pr1, verseSlide, hyperIndex)
         addPara(verseTf, verse)
+        add_hyper_jy(pr1, verseSlide, hyperIndex)
 
 indexIndex = 0
 for x in indexSlideIndex:

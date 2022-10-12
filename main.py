@@ -118,7 +118,14 @@ def add_Heading(textFrame, fontName, fontSize, lineSpacing, hAlign, text):
 
     textF_text.text = text
 
+def add_Shape(slide, shapeType, left, top, width, height):
+    shape = slide.shapes.add_shape(shapeType, left, top, width, height)
+    shape.fill.background()
+    shape.line.fill.background()
 
+    return shape
+
+#def add_Shape_TextFrame()
 
 #processes a string through a characterlimit
 def process_Limit(line, limit):
@@ -224,10 +231,15 @@ indexHeading_width = Cm(6.22)
 indexHeading_height = Cm(2.13)
 
 #indexSlide songName constants
-indexBoxLeft = [Cm(2.48), Cm(17.08)]
-indexBoxTop = [Cm(3.55), Cm(4.77), Cm(6), Cm(7.23), Cm(8.45), Cm(9.68), Cm(10.9), Cm(12.13), Cm(13.36), Cm(14.58)]
-indexBoxWidth = Cm(14.3)
-indexBoxHeight = Cm(1.04)
+indexList_fontName = 'Calibri (Body)'
+indexList_fontSize = 24
+indexList_HAlign = PP_PARAGRAPH_ALIGNMENT.LEFT
+indexList_VAlign = MSO_VERTICAL_ANCHOR.MIDDLE
+indexList_Shape = MSO_SHAPE_TYPE.AUTO_SHAPE
+indexList_left = [Cm(2.48), Cm(17.08)]
+indexList_top = [Cm(3.55), Cm(4.77), Cm(6), Cm(7.23), Cm(8.45), Cm(9.68), Cm(10.9), Cm(12.13), Cm(13.36), Cm(14.58)]
+indexList_width = Cm(14.3)
+indexList_height = Cm(1.04)
 
 #songNameSlide constants
 songTitles_fontName = 'Calibri Light (Headings)'
@@ -312,23 +324,20 @@ for song in chosenSongs:
 
 indexIndex = 0
 for x in indexSlideIndex:
-    for y in indexBoxLeft:
-        for z in indexBoxTop:
-            indexRect = x.shapes.add_shape(MSO_SHAPE_TYPE.AUTO_SHAPE, y, z, indexBoxWidth, indexBoxHeight)
+    for y in indexList_left:
+        for z in indexList_top:
+            indexRectangle = add_Shape(x, indexList_Shape, y, z, indexList_width, indexList_height)
             
-            indexRect.fill.background()
-            indexRect.line.fill.background()
-            
-            rectText = indexRect.text_frame
-            rectText.vertical_anchor = MSO_VERTICAL_ANCHOR.MIDDLE
-            indexText = rectText.paragraphs[0]            
+            textFrame = indexRectangle.text_frame
+            textFrame.vertical_anchor = indexList_VAlign
+            indexText = textFrame.paragraphs[0]            
 
             indexText.font.name = 'Calibri (Body)'
             indexText.font.size = Pt(24)
             indexText.alignment = PP_PARAGRAPH_ALIGNMENT.LEFT
 
             try:
-                add_link(pr1, indexRect, presIndex[indexIndex])
+                add_link(pr1, indexRectangle, presIndex[indexIndex])
 
                 if indexIndex <9:
                     indexText.text = str(indexIndex + 1) + '.    ' + chosenSongs[indexIndex]

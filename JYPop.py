@@ -1,8 +1,5 @@
-from re import search
 from tkinter.filedialog import asksaveasfilename
-from pptx import Presentation 
 from tkinter import *
-from PIL import ImageTk, Image
 import os.path
 
 class Application(Frame):

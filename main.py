@@ -1,6 +1,6 @@
 from pptx import *
-from tkinter import *
 from constants import *
+from tkinter import Tk
 from JYPop import Application
 import pandas as pd
 import math
@@ -154,7 +154,7 @@ def clean_Database(df):
     return fullDatabase
 
 #builds the Title Slide
-def build_Title_Slide(pres, slide_register):
+def build_Title_Slide(pres, slide_register, presentationName):
     titleSlide = pres.slides.add_slide(slide_register)
     startBoxText = add_Text_Frame(titleSlide, title_left, title_top, title_width, title_height, title_VAlign)
     add_Heading(startBoxText, title_fontName, title_fontSize, title_lineSpacing, title_HAlign, presentationName)
@@ -173,7 +173,7 @@ def build_Index_Slide(pres, slide_register, indexSlideIndex):
     add_hyper_jy(pres, indexSlide, 0)
 
 #builds the SongTitle Slides
-def build_Song_Title_Slide(pres, slide_register, hyperIndex, presIndex):
+def build_Song_Title_Slide(pres, slide_register, hyperIndex, presIndex, songName):
     titleSlide = pres.slides.add_slide(slide_register)
     songTitleTF = add_Text_Frame(titleSlide, songTitles_left, songTitles_top, songTitles_width, songTitles_height, songTitles_VAlign)
     add_Heading(songTitleTF, songTitles_fontName, songTitles_fontSize, songTitles_lineSpacing, songTitles_HAlign, songName)    
@@ -181,13 +181,14 @@ def build_Song_Title_Slide(pres, slide_register, hyperIndex, presIndex):
     presIndex.append(pres.slides.index(titleSlide))
 
 #builds the SongVerse Slides
-def build_Song_Verse_Slide(pres, slide_register, hyperIndex):
+def build_Song_Verse_Slide(pres, slide_register, hyperIndex, verse):
     verseSlide = pres.slides.add_slide(slide_register)  
     verseTf = add_Text_Frame(verseSlide, verse_left, verse_top, verse_width, verse_height, verse_VAlign)
     addPara(verseTf, verse)
     add_hyper_jy(pres, verseSlide, hyperIndex)
 
-def populate_Index_Slide(pres, indexSlideIndex, indexListLeft, indexListTop, index):
+#populate the Index Slide List
+def populate_Index_Slide(pres, indexSlideIndex, indexListLeft, indexListTop, index, chosenSongs):
     indexIndex = 0
     for x in indexSlideIndex:
         for y in indexListLeft:
@@ -209,61 +210,66 @@ def populate_Index_Slide(pres, indexSlideIndex, indexListLeft, indexListTop, ind
 
                 indexIndex = indexIndex + 1
 
-#pull from database
-df = pd.read_csv(database_path)
-try: 
-    url = f'https://docs.google.com/spreadsheets/d/1P3Qu1EQLgcQYWSZQwjY5OWmEnnJMvSSgLkasa6rMC6E/gviz/tq?tqx=out:csv'
-    df = pd.read_csv(url)
-except:
-    df = pd.read_csv(os.path.join("extra", "database.csv"))
+#main method
+def main():
+    #pull from database
+    df = pd.read_csv(database_path)
+    try: 
+        #url = f'https://docs.google.com/spreadsheets/d/1P3Qu1EQLgcQYWSZQwjY5OWmEnnJMvSSgLkasa6rMC6E/gviz/tq?tqx=out:csv'
+        df = pd.read_csv(url)
+    except:
+        df = pd.read_csv(database_path)
 
-#variables
-allSongs = clean_Database(df)
-fullSongList = df['Song'].tolist()
-indexSlide_index = []
-presIndex = []
+    #variables
+    allSongs = clean_Database(df)
+    fullSongList = df['Song'].tolist()
+    indexSlide_index = []
+    presIndex = []
 
-#PopUp Window
-window = Tk()
-window.title("JY Music Slides Generator")
-Application.getWindow(window)
-Application.saveSongList(fullSongList)
-app = Application(master=window)
-app.mainloop()
+    #PopUp Window
+    window = Tk()
+    window.title("JY Music Slides Generator")
+    Application.getWindow(window)
+    Application.saveSongList(fullSongList)
+    app = Application(master=window)
+    app.mainloop()
 
-#save user inputs
-chosenSongs = Application.song_List
-savePath = Application.filepath
-presentationName = process_Limit(Application.presentationName, title_limit)
+    #save user inputs
+    chosenSongs = Application.song_List
+    savePath = Application.filepath
+    presentationName = process_Limit(Application.presentationName, title_limit)
 
-#calculate number of Index pages required
-indexPages = math.ceil(len(chosenSongs)/20)
+    #calculate number of Index pages required
+    indexPages = math.ceil(len(chosenSongs)/20)
 
-#BUILD PPT
-pr1 = Presentation(presentation_path)
-slide1_register = pr1.slide_layouts[6]
+    #BUILD PPT
+    pr1 = Presentation(presentation_path)
+    slide1_register = pr1.slide_layouts[6]
 
-#Title Slide
-build_Title_Slide(pr1, slide1_register)
+    #Title Slide
+    build_Title_Slide(pr1, slide1_register, presentationName)
 
-#Index Slide
-for x in range(indexPages):
-    build_Index_Slide(pr1, slide1_register, indexSlide_index)
+    #Index Slide
+    for x in range(indexPages):
+        build_Index_Slide(pr1, slide1_register, indexSlide_index)
 
-for song in chosenSongs:
-    hyperIndex = math.floor(chosenSongs.index(song)/20) + 1
-    songName = process_Limit(song, songTitles_limit)
-    songIndex = fullSongList.index(song)
-    lyrics = allSongs[songIndex][1:]
+    for song in chosenSongs:
+        hyperIndex = math.floor(chosenSongs.index(song)/20) + 1
+        songName = process_Limit(song, songTitles_limit)
+        songIndex = fullSongList.index(song)
+        lyrics = allSongs[songIndex][1:]
 
-    build_Song_Title_Slide(pr1, slide1_register, hyperIndex, presIndex)
+        build_Song_Title_Slide(pr1, slide1_register, hyperIndex, presIndex, songName)
 
-    for verse in lyrics:
-        build_Song_Verse_Slide(pr1, slide1_register, hyperIndex)
+        for verse in lyrics:
+            build_Song_Verse_Slide(pr1, slide1_register, hyperIndex, verse)
 
-populate_Index_Slide(pr1, indexSlide_index, indexList_left, indexList_top, presIndex)
+    populate_Index_Slide(pr1, indexSlide_index, indexList_left, indexList_top, presIndex, chosenSongs)
 
+    if Application.save == 1:
+        pr1.save(savePath)
 
-if Application.save == 1:
-    pr1.save(savePath)
+#calls the main method when running the file
+if __name__ == "__main__":
+    main()
 

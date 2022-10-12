@@ -1,12 +1,9 @@
 from pptx import *
 from tkinter import *
-from pptx.enum.text import PP_PARAGRAPH_ALIGNMENT, MSO_VERTICAL_ANCHOR
-from pptx.enum.shapes import MSO_SHAPE_TYPE
-from pptx.util import Cm, Pt
+from constants import *
 from JYPop import Application
 import pandas as pd
 import math
-import os.path
 
 #Merina gave some good feedback, this is her credit.
 
@@ -100,7 +97,7 @@ def add_link(pres, shape, link):
     click.target_slide = pres.slides[link]
     click.action
 
-#adds a textFrame
+#adds a textFrame to a slide
 def add_Text_Frame(slide, left, top, width, height, vAlign):
     textBox = slide.shapes.add_textbox(left, top, width, height)
     textFrame = textBox.text_frame
@@ -118,6 +115,7 @@ def add_Heading(textFrame, fontName, fontSize, lineSpacing, hAlign, text):
 
     textF_text.text = text
 
+#adds a shape to a slide
 def add_Shape(slide, shapeType, left, top, width, height):
     shape = slide.shapes.add_shape(shapeType, left, top, width, height)
     shape.fill.background()
@@ -125,7 +123,17 @@ def add_Shape(slide, shapeType, left, top, width, height):
 
     return shape
 
-#def add_Shape_TextFrame()
+#adds a text to a shape
+def add_Shape_Text(shape, vAlign, fontName, fontSize, hAlign):
+    textFrame = shape.text_frame
+    textFrame.vertical_anchor = vAlign
+    indexText = textFrame.paragraphs[0]
+
+    indexText.font.name = fontName
+    indexText.font.size = Pt(fontSize)
+    indexText.alignment = hAlign
+    
+    return indexText
 
 #processes a string through a characterlimit
 def process_Limit(line, limit):
@@ -179,96 +187,27 @@ def build_Song_Verse_Slide(pres, slide_register, hyperIndex):
     addPara(verseTf, verse)
     add_hyper_jy(pres, verseSlide, hyperIndex)
 
-#os paths
-jy_icon_path = os.path.join("extra", "JY-Icon-White.png")
-database_path = os.path.join("extra", "database.csv")
-presentation_path = os.path.join("extra", "MusicSlidesTemplate.pptx")
+def populate_Index_Slide(pres, indexSlideIndex, indexListLeft, indexListTop, index):
+    indexIndex = 0
+    for x in indexSlideIndex:
+        for y in indexListLeft:
+            for z in indexListTop:
+                index_song_shape = add_Shape(x, indexList_Shape, y, z, indexList_width, indexList_height)
+                index_song_shape_text = add_Shape_Text(index_song_shape, indexList_VAlign, indexList_fontName, indexList_fontSize, indexList_HAlign)
 
-#TitleSlide title constants
-title_fontName = 'Calibri Light (Headings)'
-title_fontSize = 72
-title_lineSpacing = 0.9
-title_HAlign = PP_PARAGRAPH_ALIGNMENT.CENTER
-title_VAlign = MSO_VERTICAL_ANCHOR.BOTTOM
-title_left = Cm(4.23)
-title_top = Cm(3.12)
-title_width = Cm(25.4)
-title_height = Cm(6.63)
-title_limit = 25
+                try:
+                    add_link(pres, index_song_shape, index[indexIndex])
 
-#TitleSlide JY Icon constants
-title_JYIcon_left = Cm(15.61)
-title_JYIcon_top = Cm(11.96)
-title_JYIcon_height = Cm(2.64)
+                    if indexIndex <9:
+                        index_song_shape_text.text = str(indexIndex + 1) + '.    ' + chosenSongs[indexIndex]
+                    elif indexIndex <99:
+                        index_song_shape_text.text = str(indexIndex + 1) + '.  ' + chosenSongs[indexIndex]
+                    else:
+                        index_song_shape_text.text = str(indexIndex + 1) + '.' + chosenSongs[indexIndex]
+                except:
+                    pass
 
-#TitleSlide subtitle constants
-subTitle_fontName = 'Calibri (Body)'
-subTitle_fontSize = 24
-subTitle_lineSpacing = 0.9
-subTitle_HAlign = PP_PARAGRAPH_ALIGNMENT.CENTER
-subTitle_VAlign = MSO_VERTICAL_ANCHOR.MIDDLE
-subTitle_left = Cm(4.23)
-subTitle_top = Cm(14.97)
-subTitle_width = Cm(25.4)
-subTitle_height = Cm(1.25)
-subTitle_text = "Jesus Youth Australia"
-
-#normalSlide JY Icon constants
-norm_JYIcon_left = Cm(16.23)
-norm_JYIcon_top = Cm(17.37)
-norm_JYIcon_height = Cm(1.4)
-
-#indexSlide title constants
-indexHeading_fontName = 'Calibri Light (Headings)'
-indexHeading_fontSize = 48
-indexHeading_lineSpacing = 0.9
-indexHeading_HAlign = PP_PARAGRAPH_ALIGNMENT.CENTER
-indexHeading_VAlign = MSO_VERTICAL_ANCHOR.MIDDLE
-indexHeading_text = "Index"
-indexHeading_left = Cm(13.75)
-indexHeading_top = Cm(0.54)
-indexHeading_width = Cm(6.22)
-indexHeading_height = Cm(2.13)
-
-#indexSlide songName constants
-indexList_fontName = 'Calibri (Body)'
-indexList_fontSize = 24
-indexList_HAlign = PP_PARAGRAPH_ALIGNMENT.LEFT
-indexList_VAlign = MSO_VERTICAL_ANCHOR.MIDDLE
-indexList_Shape = MSO_SHAPE_TYPE.AUTO_SHAPE
-indexList_left = [Cm(2.48), Cm(17.08)]
-indexList_top = [Cm(3.55), Cm(4.77), Cm(6), Cm(7.23), Cm(8.45), Cm(9.68), Cm(10.9), Cm(12.13), Cm(13.36), Cm(14.58)]
-indexList_width = Cm(14.3)
-indexList_height = Cm(1.04)
-
-#songNameSlide constants
-songTitles_fontName = 'Calibri Light (Headings)'
-songTitles_fontSize = 80
-songTitles_lineSpacing = 0.9
-songTitles_HAlign = PP_PARAGRAPH_ALIGNMENT.CENTER
-songTitles_VAlign = MSO_VERTICAL_ANCHOR.MIDDLE
-songTitles_left = Cm(2.27)
-songTitles_top = Cm(4.48)
-songTitles_width = Cm(29.21)
-songTitles_height = Cm(9.68)
-songTitles_limit = 25
-
-#songVerseSlide constants
-verse_fontName = 'Calibri (Body)'
-verse_HAlign = PP_PARAGRAPH_ALIGNMENT.CENTER
-verse_VAlign = MSO_VERTICAL_ANCHOR.MIDDLE
-verse_left = Cm(2.42)
-verse_top = Cm(2)
-verse_width = Cm(29.01)
-verse_height = Cm(14.5)
-#fontSize based on line count
-verse_fontSize_lines5 = 60
-verse_fontSize_lines6 = 56
-verse_fontSize_lines7 = 51
-#characterLimit based on line count
-verse_charLimit_lines5 = 30
-verse_charLimit_lines6 = 33
-verse_charLimit_lines7 = 38
+                indexIndex = indexIndex + 1
 
 #pull from database
 df = pd.read_csv(database_path)
@@ -281,7 +220,7 @@ except:
 #variables
 allSongs = clean_Database(df)
 fullSongList = df['Song'].tolist()
-indexSlideIndex = []
+indexSlide_index = []
 presIndex = []
 
 #PopUp Window
@@ -309,7 +248,7 @@ build_Title_Slide(pr1, slide1_register)
 
 #Index Slide
 for x in range(indexPages):
-    build_Index_Slide(pr1, slide1_register, indexSlideIndex)
+    build_Index_Slide(pr1, slide1_register, indexSlide_index)
 
 for song in chosenSongs:
     hyperIndex = math.floor(chosenSongs.index(song)/20) + 1
@@ -322,33 +261,7 @@ for song in chosenSongs:
     for verse in lyrics:
         build_Song_Verse_Slide(pr1, slide1_register, hyperIndex)
 
-indexIndex = 0
-for x in indexSlideIndex:
-    for y in indexList_left:
-        for z in indexList_top:
-            indexRectangle = add_Shape(x, indexList_Shape, y, z, indexList_width, indexList_height)
-            
-            textFrame = indexRectangle.text_frame
-            textFrame.vertical_anchor = indexList_VAlign
-            indexText = textFrame.paragraphs[0]            
-
-            indexText.font.name = 'Calibri (Body)'
-            indexText.font.size = Pt(24)
-            indexText.alignment = PP_PARAGRAPH_ALIGNMENT.LEFT
-
-            try:
-                add_link(pr1, indexRectangle, presIndex[indexIndex])
-
-                if indexIndex <9:
-                    indexText.text = str(indexIndex + 1) + '.    ' + chosenSongs[indexIndex]
-                elif indexIndex <99:
-                    indexText.text = str(indexIndex + 1) + '.  ' + chosenSongs[indexIndex]
-                else:
-                    indexText.text = str(indexIndex + 1) + '.' + chosenSongs[indexIndex]
-            except:
-                pass
-
-            indexIndex = indexIndex + 1
+populate_Index_Slide(pr1, indexSlide_index, indexList_left, indexList_top, presIndex)
 
 
 if Application.save == 1:

@@ -2,7 +2,6 @@ from pptx import *
 from tkinter import *
 from pptx.enum.text import PP_PARAGRAPH_ALIGNMENT, MSO_VERTICAL_ANCHOR
 from pptx.enum.shapes import MSO_SHAPE_TYPE
-from pptx.dml.color import RGBColor
 from pptx.util import Cm, Pt
 from JYPop import Application
 import pandas as pd
@@ -17,44 +16,40 @@ def addPara(textBoxText, para):
     lineCount = len(splitPara)
     counter = lineCount
     newPara = []
-    fontSize = Lines5
-    characterLimit = Limit5
+    fontSize = verse_fontSize_lines5
+    characterLimit = verse_charLimit_lines5
     
     if len(splitPara) == 6:
-        fontSize = Lines6
-        characterLimit = Limit6
+        fontSize = verse_fontSize_lines6
+        characterLimit = verse_charLimit_lines6
     elif len(splitPara) > 6:
-        fontSize = Lines7
-        characterLimit = Limit7
+        fontSize = verse_fontSize_lines7
+        characterLimit = verse_charLimit_lines7
     
     if counter < 6:
         counter = lineCount
-        counter = checkLineCount(splitPara, counter, Limit5)
+        counter = checkLineCount(splitPara, counter, verse_charLimit_lines5)
 
         if counter >= 6:
             counter = 6
         
     if counter == 6:
         counter = lineCount
-        counter = checkLineCount(splitPara, counter, Limit6)
+        counter = checkLineCount(splitPara, counter, verse_charLimit_lines6)
         
         if counter > 6:
             counter = 7
         else:
-            fontSize = Lines6
-            characterLimit = Limit6
+            fontSize = verse_fontSize_lines6
+            characterLimit = verse_charLimit_lines6
 
     if counter > 6:
         counter = lineCount
-        fontSize = Lines7
-        characterLimit = Limit7
+        fontSize = verse_fontSize_lines7
+        characterLimit = verse_charLimit_lines7
 
     for line in splitPara:
-        while len(line) > characterLimit:
-            #lineCount = lineCount + 1
-            index = line[:characterLimit].rindex(' ')
-            line = line[:index] + '\n' + line[index:]
-            break
+        line = process_Limit(line, characterLimit)
         newPara.append(line)
     
     splitPara = newPara
@@ -74,9 +69,9 @@ def addLine(textBoxText, line, count, fontSize):
     textBoxPara.space_after = Pt(10)
     textBoxPara.line_spacing = 0.8
 
-    if fontSize == Lines5:
+    if fontSize == verse_fontSize_lines5:
         textBoxPara.line_spacing = 0.9
-    elif fontSize == Lines6:
+    elif fontSize == verse_fontSize_lines6:
         textBoxPara.line_spacing = 0.8
     else:
         textBoxPara.line_spacing = 0.7
@@ -96,7 +91,7 @@ def checkLineCount(splitPara, count, limit):
 
 #adds a jy icon link
 def add_hyper_jy(pres, slide, link):
-    pic = slide.shapes.add_picture(jy_icon_path, img_left, img_top, img_height)
+    pic = slide.shapes.add_picture(jy_icon_path, norm_JYIcon_left, norm_JYIcon_top, norm_JYIcon_height)
     add_link(pres, pic, link)
 
 #adds a link to a shape
@@ -105,6 +100,7 @@ def add_link(pres, shape, link):
     click.target_slide = pres.slides[link]
     click.action
 
+#adds a textFrame
 def add_Text_Frame(slide, left, top, width, height, vAlign):
     textBox = slide.shapes.add_textbox(left, top, width, height)
     textFrame = textBox.text_frame
@@ -112,6 +108,7 @@ def add_Text_Frame(slide, left, top, width, height, vAlign):
     
     return textFrame
 
+#adds a heading to a textFrame
 def add_Heading(textFrame, fontName, fontSize, lineSpacing, hAlign, text):
     textF_text = textFrame.paragraphs[0]
     textF_text.font.name = fontName
@@ -122,44 +119,99 @@ def add_Heading(textFrame, fontName, fontSize, lineSpacing, hAlign, text):
     textF_text.text = text
 
 
-#to determine font size based on number of lines
-Lines5 = 60
-Lines6 = 56
-Lines7 = 51
 
-#character limit based on font size
-Limit5 = 30
-Limit6 = 33
-Limit7 = 38
+#processes a string through a characterlimit
+def process_Limit(line, limit):
+    tempName = line
+    while len(line) > limit:
+        index = line[:limit].rindex(' ')
+        tempName = line[:index] + '\n' + line[index:]
+        break
+    return tempName
 
-#textbox dimensions and location
+#removes nan
+def clean_Database(df):
+    fullDatabase = df.values.tolist()
+    x = 0
+    for song in fullDatabase:
+        fullDatabase[x] = [x for x in song if str(x) != 'nan']
+        x = x + 1
+    return fullDatabase
 
+#builds the Title Slide
+def build_Title_Slide(pres, slide_register):
+    titleSlide = pres.slides.add_slide(slide_register)
+    startBoxText = add_Text_Frame(titleSlide, title_left, title_top, title_width, title_height, title_VAlign)
+    add_Heading(startBoxText, title_fontName, title_fontSize, title_lineSpacing, title_HAlign, presentationName)
 
-headerLeft = Cm(4.23)
-headerTop = Cm(3.12)
-headerWidth = Cm(25.4)
-headerHeight = Cm(6.63)
+    subBoxText = add_Text_Frame(titleSlide, subTitle_left, subTitle_top, subTitle_width, subTitle_height, subTitle_VAlign)
+    add_Heading(subBoxText, subTitle_fontName, subTitle_fontSize, subTitle_lineSpacing, subTitle_HAlign, subTitle_text)
 
-subsongTitles_left = Cm(4.23)
-subsongTitles_top = Cm(14.97)
-subsongTitles_width = Cm(25.4)
-subsongTitles_height = Cm(1.25)
+    pic = titleSlide.shapes.add_picture(jy_icon_path, title_JYIcon_left, title_JYIcon_top, title_JYIcon_height)
 
+#builds the Index Slides
+def build_Index_Slide(pres, slide_register, indexSlideIndex):
+    indexSlide = pres.slides.add_slide(slide_register)
+    indexSlideIndex.append(indexSlide)
+    indexTitleTF = add_Text_Frame(indexSlide, indexHeading_left, indexHeading_top, indexHeading_width, indexHeading_height, indexHeading_VAlign)
+    add_Heading(indexTitleTF, indexHeading_fontName, indexHeading_fontSize, indexHeading_lineSpacing, indexHeading_HAlign, indexHeading_text)
+    add_hyper_jy(pres, indexSlide, 0)
+
+#builds the SongTitle Slides
+def build_Song_Title_Slide(pres, slide_register, hyperIndex, presIndex):
+    titleSlide = pres.slides.add_slide(slide_register)
+    songTitleTF = add_Text_Frame(titleSlide, songTitles_left, songTitles_top, songTitles_width, songTitles_height, songTitles_VAlign)
+    add_Heading(songTitleTF, songTitles_fontName, songTitles_fontSize, songTitles_lineSpacing, songTitles_HAlign, songName)    
+    add_hyper_jy(pres, titleSlide, hyperIndex)
+    presIndex.append(pres.slides.index(titleSlide))
+
+#builds the SongVerse Slides
+def build_Song_Verse_Slide(pres, slide_register, hyperIndex):
+    verseSlide = pres.slides.add_slide(slide_register)  
+    verseTf = add_Text_Frame(verseSlide, verse_left, verse_top, verse_width, verse_height, verse_VAlign)
+    addPara(verseTf, verse)
+    add_hyper_jy(pres, verseSlide, hyperIndex)
+
+#os paths
 jy_icon_path = os.path.join("extra", "JY-Icon-White.png")
+database_path = os.path.join("extra", "database.csv")
+presentation_path = os.path.join("extra", "MusicSlidesTemplate.pptx")
 
-img_title_left = Cm(15.61)
-img_title_top = Cm(11.96)
-title_img_height = Cm(2.64)
+#TitleSlide title constants
+title_fontName = 'Calibri Light (Headings)'
+title_fontSize = 72
+title_lineSpacing = 0.9
+title_HAlign = PP_PARAGRAPH_ALIGNMENT.CENTER
+title_VAlign = MSO_VERTICAL_ANCHOR.BOTTOM
+title_left = Cm(4.23)
+title_top = Cm(3.12)
+title_width = Cm(25.4)
+title_height = Cm(6.63)
+title_limit = 25
 
-img_left = Cm(16.23)
-img_top = Cm(17.37)
-img_height = Cm(1.4)
+#TitleSlide JY Icon constants
+title_JYIcon_left = Cm(15.61)
+title_JYIcon_top = Cm(11.96)
+title_JYIcon_height = Cm(2.64)
 
-indexBoxLeft = [Cm(2.48), Cm(17.08)]
-indexBoxTop = [Cm(3.55), Cm(4.77), Cm(6), Cm(7.23), Cm(8.45), Cm(9.68), Cm(10.9), Cm(12.13), Cm(13.36), Cm(14.58)]
-indexBoxWidth = Cm(14.3)
-indexBoxHeight = Cm(1.04)
+#TitleSlide subtitle constants
+subTitle_fontName = 'Calibri (Body)'
+subTitle_fontSize = 24
+subTitle_lineSpacing = 0.9
+subTitle_HAlign = PP_PARAGRAPH_ALIGNMENT.CENTER
+subTitle_VAlign = MSO_VERTICAL_ANCHOR.MIDDLE
+subTitle_left = Cm(4.23)
+subTitle_top = Cm(14.97)
+subTitle_width = Cm(25.4)
+subTitle_height = Cm(1.25)
+subTitle_text = "Jesus Youth Australia"
 
+#normalSlide JY Icon constants
+norm_JYIcon_left = Cm(16.23)
+norm_JYIcon_top = Cm(17.37)
+norm_JYIcon_height = Cm(1.4)
+
+#indexSlide title constants
 indexHeading_fontName = 'Calibri Light (Headings)'
 indexHeading_fontSize = 48
 indexHeading_lineSpacing = 0.9
@@ -171,6 +223,13 @@ indexHeading_top = Cm(0.54)
 indexHeading_width = Cm(6.22)
 indexHeading_height = Cm(2.13)
 
+#indexSlide songName constants
+indexBoxLeft = [Cm(2.48), Cm(17.08)]
+indexBoxTop = [Cm(3.55), Cm(4.77), Cm(6), Cm(7.23), Cm(8.45), Cm(9.68), Cm(10.9), Cm(12.13), Cm(13.36), Cm(14.58)]
+indexBoxWidth = Cm(14.3)
+indexBoxHeight = Cm(1.04)
+
+#songNameSlide constants
 songTitles_fontName = 'Calibri Light (Headings)'
 songTitles_fontSize = 80
 songTitles_lineSpacing = 0.9
@@ -180,7 +239,9 @@ songTitles_left = Cm(2.27)
 songTitles_top = Cm(4.48)
 songTitles_width = Cm(29.21)
 songTitles_height = Cm(9.68)
+songTitles_limit = 25
 
+#songVerseSlide constants
 verse_fontName = 'Calibri (Body)'
 verse_HAlign = PP_PARAGRAPH_ALIGNMENT.CENTER
 verse_VAlign = MSO_VERTICAL_ANCHOR.MIDDLE
@@ -188,22 +249,30 @@ verse_left = Cm(2.42)
 verse_top = Cm(2)
 verse_width = Cm(29.01)
 verse_height = Cm(14.5)
+#fontSize based on line count
+verse_fontSize_lines5 = 60
+verse_fontSize_lines6 = 56
+verse_fontSize_lines7 = 51
+#characterLimit based on line count
+verse_charLimit_lines5 = 30
+verse_charLimit_lines6 = 33
+verse_charLimit_lines7 = 38
 
-df = pd.read_csv(os.path.join("extra", "database.csv"))
+#pull from database
+df = pd.read_csv(database_path)
 try: 
     url = f'https://docs.google.com/spreadsheets/d/1P3Qu1EQLgcQYWSZQwjY5OWmEnnJMvSSgLkasa6rMC6E/gviz/tq?tqx=out:csv'
     df = pd.read_csv(url)
 except:
     df = pd.read_csv(os.path.join("extra", "database.csv"))
 
-allSongs = df.values.tolist()
+#variables
+allSongs = clean_Database(df)
 fullSongList = df['Song'].tolist()
+indexSlideIndex = []
+presIndex = []
 
-x = 0
-for song in allSongs:
-    allSongs[x] = [x for x in song if str(x) != 'nan']
-    x = x + 1
-
+#PopUp Window
 window = Tk()
 window.title("JY Music Slides Generator")
 Application.getWindow(window)
@@ -211,90 +280,35 @@ Application.saveSongList(fullSongList)
 app = Application(master=window)
 app.mainloop()
 
+#save user inputs
 chosenSongs = Application.song_List
 savePath = Application.filepath
+presentationName = process_Limit(Application.presentationName, title_limit)
 
-#allSongs: database
-#fullSongList: list of all song names
-#chosenSongs: list of selected songs
-#songIndex: index of all the selected songs
+#calculate number of Index pages required
+indexPages = math.ceil(len(chosenSongs)/20)
 
-pr1 = Presentation(os.path.join("extra", "MusicSlidesTemplate.pptx"))
-
+#BUILD PPT
+pr1 = Presentation(presentation_path)
 slide1_register = pr1.slide_layouts[6]
 
-startSlide = pr1.slides.add_slide(slide1_register)
-startTextBox = startSlide.shapes.add_textbox(headerLeft, headerTop, headerWidth, headerHeight)
-startBoxText = startTextBox.text_frame
-startBoxText.vertical_anchor = MSO_VERTICAL_ANCHOR.BOTTOM
-startText = startBoxText.paragraphs[0]
+#Title Slide
+build_Title_Slide(pr1, slide1_register)
 
-startText.font.name = 'Calibri Light (Headings)'
-startText.font.size = Pt(72)
-startText.line_spacing = 0.9
-startText.alignment = PP_PARAGRAPH_ALIGNMENT.CENTER
-
-presentationName = Application.presentationName
-tempName = presentationName
-
-while len(presentationName) > 25:
-    index = presentationName[:25].rindex(' ')
-    tempName = presentationName[:index] + '\n' + presentationName[index:]
-    break
-
-startText.text = tempName
-
-pic = startSlide.shapes.add_picture(jy_icon_path, img_title_left, img_title_top, title_img_height)
-
-subTextBox = startSlide.shapes.add_textbox(subsongTitles_left, subsongTitles_top, subsongTitles_width, subsongTitles_height)
-subBoxText = subTextBox.text_frame
-subBoxText.vertical_anchor = MSO_VERTICAL_ANCHOR.MIDDLE
-subText = subBoxText.paragraphs[0]
-
-subText.font.name = 'Calibri (Body)'
-subText.font.size = Pt(24)
-subText.line_spacing = 0.9
-subText.alignment = PP_PARAGRAPH_ALIGNMENT.CENTER
-
-subText.text = "Jesus Youth Australia"
-
-indexPages = math.ceil(len(chosenSongs)/20)
-indexSlideIndex = []
-presIndex = []
-
+#Index Slide
 for x in range(indexPages):
-    indexSlide = pr1.slides.add_slide(slide1_register)
-    indexSlideIndex.append(indexSlide)
-
-    indexTitleTF = add_Text_Frame(indexSlide, indexHeading_left, indexHeading_top, indexHeading_width, indexHeading_height, indexHeading_VAlign)
-    add_Heading(indexTitleTF, indexHeading_fontName, indexHeading_fontSize, indexHeading_lineSpacing, indexHeading_HAlign, indexHeading_text)
-    add_hyper_jy(pr1, indexSlide, 0)
-
+    build_Index_Slide(pr1, slide1_register, indexSlideIndex)
 
 for song in chosenSongs:
-    titleSlide = pr1.slides.add_slide(slide1_register)
-    
     hyperIndex = math.floor(chosenSongs.index(song)/20) + 1
-    songName = song
-    while len(song) > 25:
-        #lineCount = lineCount + 1
-        index = song[:25].rindex(' ')
-        songName = song[:index] + '\n' + song[index:]
-        break
+    songName = process_Limit(song, songTitles_limit)
     songIndex = fullSongList.index(song)
     lyrics = allSongs[songIndex][1:]
 
-    songTitleTF = add_Text_Frame(titleSlide, songTitles_left, songTitles_top, songTitles_width, songTitles_height, songTitles_VAlign)
-    add_Heading(songTitleTF, songTitles_fontName, songTitles_fontSize, songTitles_lineSpacing, songTitles_HAlign, songName)    
-    add_hyper_jy(pr1, titleSlide, hyperIndex)
+    build_Song_Title_Slide(pr1, slide1_register, hyperIndex, presIndex)
 
-    presIndex.append(pr1.slides.index(titleSlide))
     for verse in lyrics:
-        verseSlide = pr1.slides.add_slide(slide1_register)
-        
-        verseTf = add_Text_Frame(verseSlide, verse_left, verse_top, verse_width, verse_height, verse_VAlign)
-        addPara(verseTf, verse)
-        add_hyper_jy(pr1, verseSlide, hyperIndex)
+        build_Song_Verse_Slide(pr1, slide1_register, hyperIndex)
 
 indexIndex = 0
 for x in indexSlideIndex:

@@ -163,7 +163,7 @@ class Application(Frame):
             Application.window.destroy()
 
     def saveFile():
-        filepath = asksaveasfilename(defaultextension=".pptx", filetypes=[("ppt Files", "*.ppt"), ("All Files", "*.*")])
+        filepath = asksaveasfilename(defaultextension=".pptx", filetypes=[("ppt Files", "*.pptx"), ("All Files", "*.*")])
         if not filepath:
             return
         Application.save = 1

@@ -5,8 +5,6 @@ from JYPop import Application
 import pandas as pd
 import math
 
-#Merina gave some good feedback, this is her credit.
-
 #adds verse to slide
 def addPara(textBoxText, para):
     splitPara = para.splitlines()
@@ -212,7 +210,7 @@ def populate_Index_Slide(pres, indexSlideIndex, indexListLeft, indexListTop, ind
 
 #main method
 def main():
-    #pull from database
+    #pull from database else read from file
     df = pd.read_csv(database_path)
     try: 
         url = f'https://docs.google.com/spreadsheets/d/1P3Qu1EQLgcQYWSZQwjY5OWmEnnJMvSSgLkasa6rMC6E/gviz/tq?tqx=out:csv'
@@ -226,7 +224,7 @@ def main():
     indexSlide_index = []
     presIndex = []
 
-    #PopUp Window
+    #Create the PopUp Window
     window = Tk()
     window.title("JY Music Slides Generator")
     Application.getWindow(window)
@@ -234,25 +232,27 @@ def main():
     app = Application(master=window)
     app.mainloop()
 
-    #save user inputs
+    #save user inputs: Selected songs, save path, and presentation name for the title slide
     chosenSongs = Application.song_List
     savePath = Application.filepath
     presentationName = process_Limit(Application.presentationName, title_limit)
 
-    #calculate number of Index pages required
+    #calculate number of Index pages required based on the number of songs chosen
     indexPages = math.ceil(len(chosenSongs)/20)
 
-    #BUILD PPT
+    #EVERYTHING BELOW BUILDS THE PPT
+    #Loads presentation theme
     pr1 = Presentation(presentation_path)
     slide1_register = pr1.slide_layouts[6]
 
-    #Title Slide
+    #Creates Title Slide
     build_Title_Slide(pr1, slide1_register, presentationName)
 
-    #Index Slide
+    #Creates Empty Index Slides
     for x in range(indexPages):
         build_Index_Slide(pr1, slide1_register, indexSlide_index)
 
+    #Creates Song and Verse Slides
     for song in chosenSongs:
         hyperIndex = math.floor(chosenSongs.index(song)/20) + 1
         songName = process_Limit(song, songTitles_limit)
@@ -264,6 +264,7 @@ def main():
         for verse in lyrics:
             build_Song_Verse_Slide(pr1, slide1_register, hyperIndex, verse)
 
+    #Updates Index Slides with all the songs added
     populate_Index_Slide(pr1, indexSlide_index, indexList_left, indexList_top, presIndex, chosenSongs)
 
     if Application.save == 1:

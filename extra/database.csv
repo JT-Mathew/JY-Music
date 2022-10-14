@@ -1,5 +1,5 @@
-Song,Slide1,Slide2,Slide3,Slide4,Slide5,Slide6,Slide7,Slide8,Slide9,Slide10,Slide11,Slide12,Slide13,Slide14,Slide15
-10000 Reasons,"Bless the Lord
+,Song,Slide1,Slide2,Slide3,Slide4,Slide5,Slide6,Slide7,Slide8,Slide9,Slide10,Slide11,Slide12,Slide13,Slide14,Slide15
+0,10000 Reasons,"Bless the Lord
 Oh my soul, oh my soul
 Worship his holy name
 Sing like never before
@@ -32,7 +32,7 @@ Worship his holy name
 Sing like never before
 Oh my soul
 I’ll worship your holy name",,,,,,,,
-Above All,"Above all powers, above all kings
+1,Above All,"Above all powers, above all kings
 Above all nature and all created things
 Above all wisdom and all the ways of man
 You were here before the world began","Above all kingdoms, above all thrones
@@ -44,7 +44,7 @@ Rejected and alone","Like a rose, trampled on the ground
 You took the fall
 And thought of me
 Above all",,,,,,,,,,,
-All the People Said Amen,"You are not alone, if you are lonely
+2,All the People Said Amen,"You are not alone, if you are lonely
 When you feeling frail, you're not the only","We are all the same 
 In need of mercy 
 To be forgiven and be free
@@ -64,7 +64,7 @@ The Kingdom of God","And all the people said Amen
 And all the people said Amen
 Give thanks to the Lord for his love never ends
 And all the people said Amen",,,,,,
-Amen,"Woa-o-oh-woah Woa-o-oh-woah
+3,Amen,"Woa-o-oh-woah Woa-o-oh-woah
 Put your hands together shout for the King
 Woa-o-oh-woah Woa-o-oh-woah
 Everybody’s singing Jesus’ name
@@ -99,7 +99,7 @@ Put your hands together shout for the King
 Woa-o-oh-woah Woa-o-oh-woah
 Everybody’s singing Jesus’ name
 Amen",,,,
-Ave Maria,"As I kneel before you
+4,Ave Maria,"As I kneel before you
 As I bow my head in prayer
 Take this day, make it yours
 And fill me with your love","Ave Maria
@@ -109,7 +109,7 @@ Benedicta Tu","All I have I give you
 Every dream and wish are yours
 Mother of Christ
 Mother of mine, present them to the Lord",,,,,,,,,,,,
-Awesome God,"When he rolls up his sleevesHe ain’t puttin on the Ritz
+5,Awesome God,"When he rolls up his sleevesHe ain’t puttin on the Ritz
 Our God is an Awesome God
 There is thunder in his footsteps
 And lightning in his fist
@@ -129,7 +129,7 @@ Our God is an Awesome God","Our God is an Awesome God
 He reigns from heaven above
 With wisdom, power and love
 Our God is an Awesome God",,,,,,,,,
-Bayette Inkosi,"Bayete, Bayete Inkosi
+6,Bayette Inkosi,"Bayete, Bayete Inkosi
 Bayete, King of kings
 Bayete, Bayete Inkosi
 Bayete Inkosi King
@@ -148,11 +148,11 @@ Bayete, King of kings
 Bayete, Bayete Inkosi
 Bayete Inkosi King
 King of kings",,,,,,,,,,
-"Bless the Lord, My Soul","Bless the Lord, my soul
+7,"Bless the Lord, My Soul","Bless the Lord, my soul
 And bless God's holy name
 Bless the Lord, my soul
 Who leads me into life",,,,,,,,,,,,,,
-Blessed be Your Name,"Blessed Be Your Name
+8,Blessed be Your Name,"Blessed Be Your Name
 In the land that is plentiful 
 Where Your streams of abundance flow
 Blessed be Your name","Blessed Be Your name
@@ -183,7 +183,7 @@ Lord, blessed be Your name","Blessed be the name of the Lord
 Blessed be Your name
 Blessed be the name of the Lord
 Blessed be Your glorious name",,,,,
-Blind Man,"Blind man sat by the road and he cried, 
+9,Blind Man,"Blind man sat by the road and he cried, 
 Blind man sat by the road and he cried,
 Blind man sat by the road and he cried,
 He cried Oh, oh, oh","Show me the truth, Show me the life, Show me the way
@@ -200,7 +200,7 @@ He cried Oh, oh, oh","I am the truth, I am the life, I am the way
 The way to go home
 Baby ah-ah-ah-ah-ah
 JESUS",,,,,,,,,
-Broken Vessels,"All these pieces
+10,Broken Vessels,"All these pieces
 Broken and scattered
 In mercy gathered
 Mended and whole","Empty handed
@@ -229,7 +229,7 @@ Was blind but now I see","Oh I can see you now
 Oh I can see the love in Your eyes
 Laying yourself down
 Raising up the broken to life",,,,,,,
-Burning in my Soul,"There is power, power
+11,Burning in my Soul,"There is power, power
 Here in this hour, this hour
 We're all together, together
 Waiting here as one","Whoa-oa-oah
@@ -262,7 +262,7 @@ Burning in my sou-o-ol","There is power, power
 Here in this hour, this hour
 We're all together, together
 Waiting here as one",,,,,
-Come Now is the Time,"Come, now is the time to worship
+12,Come Now is the Time,"Come, now is the time to worship
 Come, now is the time to give your heart
 Come, just as you are to worship
 Come, just as you are before your God
@@ -273,7 +273,7 @@ Who gladly choose you now","Willingly we choose to surrender our lives
 Willingly our knees will bow
 With all our hearts, oh, mind and strength
 We gladly choose you now",,,,,,,,,,,,
-Every Move I Make,"Na, na, na, na, na
+13,Every Move I Make,"Na, na, na, na, na
 Na, na, na, na, na
 Every move I make I make in You
 You make me move Jesus
@@ -286,13 +286,13 @@ I see your face","Your love has captured me
 Oh my God
 This Love
 How can it be?",,,,,,,,,,,
-Give Thanks,"Give thanks with a grateful heart
+14,Give Thanks,"Give thanks with a grateful heart
 Give thanks to the Holy One
 Give thanks because he's given
 Jesus Christ, His Son","And now let the weak say I am strong
 Let the poor say I am rich
 Because of what the Lord has done for us",,,,,,,,,,,,,
-Glory to God in the Highest,"Glory to God in the Highest
+15,Glory to God in the Highest,"Glory to God in the Highest
 Glory to God in the Highest,
 Glory to God, Glory to God,
 And on Earth, Peace to people of Good Will","We praise you
@@ -311,7 +311,7 @@ You alone are the Most High, Jesus Christ,
 With the Holy Spirit,
 In the glory of God the Father.
 Amen.",,,,,,,,,,
-God is Watching Over You,"When you're jumping, jumping up and down 
+16,God is Watching Over You,"When you're jumping, jumping up and down 
 When you're spinning, spinning round and round 
 God's seeing everything you do
 Cos He's watching, watching over you ","God is watching, watching over you
@@ -326,7 +326,7 @@ Cos He's watching, watching over you","God is watching, watching over you
 Your life is in His hands ooh 
 He's got great big plans 
 cos he's watching over you",,,,,,,,,,,
-Good Good Father,"Oh I've heard a thousand stories of what they think you're like
+17,Good Good Father,"Oh I've heard a thousand stories of what they think you're like
 But I've heard the tender whispers of love in the dead of night
 And you tell me that you're pleasedAnd that I'm never alone","You're a good good father
 It's who you are, it's who you are, it's who you are
@@ -353,7 +353,7 @@ It's who you are, it's who you are, it's who you are
 And I'm loved by you
 You are perfect in all of your ways
 It's who I am, it's who I am, it's who I am",,,,,,
-Hail Holy Queen,"Hail Holy Queen enthroned above
+18,Hail Holy Queen,"Hail Holy Queen enthroned above
 ‘Oh Maria’
 Hail Mother of Mercy and of love
 ‘Oh Maria’","Triumph all ye Cherubim,
@@ -370,7 +370,7 @@ Mater amata intemerata
 Sanctus, Sanctus Dominus","Virgo respice, Mater adspice
 Sanctus, Sanctus Dominus
 Al-le-lu-ia (Alleluia)  ",,,,,,,,,
-"He's My Rock, My Sword, My Shield","He's my rock, my sword, my shield
+19,"He's My Rock, My Sword, My Shield","He's my rock, my sword, my shield
 He's my wheel in the middle of the field
 He's the lily of the valley
 He's the bright and morning star","He's the bright and morning star
@@ -384,7 +384,7 @@ I'm going to heaven","Cause I found a wonderful savior
 Who blesses me forever
 I'm his and thank God
 He is mine.",,,,,,,,,,,
-Heart of Worship,"When the music fades
+20,Heart of Worship,"When the music fades
 All is stripped away
 And I simply come
 Longing just to bring
@@ -415,7 +415,7 @@ It's all about you, Jesus","I'm sorry, Lord,
 for the thing I've made it
 When it's all about you,
 It's all about you, Jesus ",,,,,,,
-Here I Am Lord,"I the Lord of sea and sky
+21,Here I Am Lord,"I the Lord of sea and sky
 I have heard my people cry
 All who dwell in dark and sin
 My hand will save","I who made the stars of night
@@ -443,7 +443,7 @@ Whom shall I send?","Here I am Lord, Is it I Lord?
 I have heard you calling in the night
 I will go Lord, If you lead me
 I will hold your people in my heart",,,,,,
-Here I am to Worship,"Light of the world
+22,Here I am to Worship,"Light of the world
 You stepped down into darkness
 Opened my eyes, let me see
 Beauty that made this heart adore you
@@ -465,7 +465,7 @@ Altogether wonderful to me","I’ll never know
 how much it cost
 To see my sin 
 upon that cross",,,,,,,,
-Holy Spirit,"There’s nothing worth more
+23,Holy Spirit,"There’s nothing worth more
 That will ever come close
 No thing can compare
 You’re our living hope
@@ -490,12 +490,12 @@ Is what our hearts long for 
 To be overcome 
 By Your Presence,
 Lord",,,,,,,,
-Holy Spirit in this Land,"Holy Spirit in this Land
+24,Holy Spirit in this Land,"Holy Spirit in this Land
 Reach out and touch us as we are
 From the high high Mountains
 To the deep deep Valleys
 Holy Spirit in this Land",,,,,,,,,,,,,,
-Holy Spirit is my Helper,"The Spirit is my helper
+25,Holy Spirit is my Helper,"The Spirit is my helper
 Now and forever
 The one who is always by my side","He strengthens me when I’m weak and worn
 Takes away from me desires of this world
@@ -506,7 +506,7 @@ Wisdom and counsel He gives to me
 And fills me with power from above","The Spirit is my helper
 Now and forever
 The one who is always by my side",,,,,,,,,,,
-How Great is Our God,"The splendor of the King 
+26,How Great is Our God,"The splendor of the King 
 Clothed in majesty
 Let all the earth rejoice
 All the earth rejoice","He wraps himself in Light
@@ -531,7 +531,7 @@ My heart will sing
 How great is our God","How great is our God,
 Sing with meHow great is our God, 
 And all will seeHow great, how great is our God",,,,,,,
-I Give You My Heart,"This is my desire
+27,I Give You My Heart,"This is my desire
 To honor You
 Lord with all my heart
 I worship You","All I have within me 
@@ -551,7 +551,7 @@ I live for you alone
 And every breath that I take 
 Every moment I'm awake
 Lord have Your way in me",,,,,,,,,,
-I Have Decided to Follow Jesus,"I have decided to follow Jesus
+28,I Have Decided to Follow Jesus,"I have decided to follow Jesus
 I have decided to follow Jesus
 I have decided to follow Jesus
 No turning back, no turning back","The world behind me, 
@@ -573,7 +573,7 @@ No turning back, no turning back.","Will you decide now to follow Jesus
 Will you decide now to follow Jesus
 Will you decide now to follow Jesus
 No turning back, no turning back",,,,,,,,,,
-I Offer My Life,"All that I am,
+29,I Offer My Life,"All that I am,
 All that I have,
 I lay them down before you,
 Oh Lord","All my regrets,
@@ -595,7 +595,7 @@ Use it for Your glory","Lord I offer my days to You
 Lifting my praise to You 
 As a pleasing sacrifice
 Lord I offer You my life",,,,,,,
-I Surrender,"Here I am
+30,I Surrender,"Here I am
 Down on my knees again
 Surrendering all
 Surrendering all","And find me here
@@ -621,7 +621,7 @@ Lord have Your way in me","I surrender
 I surrender
 I wanna know You more
 I wanna know You more",,,,,,,
-I Surrender All,"All to Jesus I surrender
+31,I Surrender All,"All to Jesus I surrender
 All to Him I freely give
 I will ever love and trust Him
 In His presence daily live","I surrender all
@@ -640,7 +640,7 @@ May I know Thy power divine","I surrender all
 I surrender all
 All to Thee my blessed Savior
 I surrender all",,,,,,,,,
-"I Wanna Clap, Clap, Clap","I wanna CLAP, CLAP, CLAP,
+32,"I Wanna Clap, Clap, Clap","I wanna CLAP, CLAP, CLAP,
 I wanna SNAP, SNAP, SNAP
 I wanna CLAP, I wanna SNAP
 And praise the Lord","When the gates are open wide
@@ -681,7 +681,7 @@ I wanna SING, I wanna SHOUT
 I wanna JUMP, I wanna DANCE
 I wanna FLY into the SKY
 And praise the Lord",,,,,
-In Christ Alone,"In Christ Alone,
+33,In Christ Alone,"In Christ Alone,
 My hope is found,
 He is my light, my strength, my song
 This Cornerstone, this Solid Ground","Firm through the fiercest
@@ -717,7 +717,16 @@ I will stand, all other ground is sinking sand
 All other ground, all other ground
 Is sinking sand, is sinking sand
 So I'll stand",,,,,
-Jambo,"Jambo
+34,In the Name of Jesus,"In the name of Jesus, 
+In the name of Jesus,
+We have the victory.
+In the name of Jesus, 
+In the name of Jesus,
+Satan, you have to flee.","Oh, what can ever stand before us
+When we call on that great name?
+Jesus, Jesus, precious Jesus,
+We have the victory.",,,,,,,,,,,,,
+35,Jambo,"Jambo
 Jesus Loves You
 Are you happy
 He is with You","Karibu, into his presence
@@ -725,18 +734,18 @@ Why do you worry?
 Hakunamatata
 Oh, oh, oh, oh, 
 Almighty God",,,,,,,,,,,,,
-"Jesus, We Enthrone You","Jesus, we enthrone You
+36,"Jesus, We Enthrone You","Jesus, we enthrone You
 We proclaim You are King
 Standing here, in the midst of us
 We raise You up with our praise","And as we worship build Your throne
 And as we worship build Your throne
 And as we worship build Your throne
 Come Lord Jesus and take Your place",,,,,,,,,,,,,
-Let it Rain,"Let it rain,
+37,Let it Rain,"Let it rain,
 Let it rain,
 Open the flood gates of Heaven,
 Let it rain",,,,,,,,,,,,,,
-Let Your Fire Fall,"Holy Spirit, Holy Spirit,
+38,Let Your Fire Fall,"Holy Spirit, Holy Spirit,
 Come with your fire
 Holy Spirit, Holy Spirit,
 Come with your fire","Holy Spirit 
@@ -767,7 +776,7 @@ Let your fire fall
 Come, Holy Spirit,
 Let your fire fall
 Let your fire fall",,,,,,
-Lord I Lift Your Name,"Lord I lift your name on high
+39,Lord I Lift Your Name,"Lord I lift your name on high
 Lord I love to sing your praises
 I'm so glad you’re in my life
 I'm so glad you came to save us","You came from heaven to earth, 
@@ -777,7 +786,7 @@ my debt to pay
 From the cross to the grave, 
 from the grave to the sky
 Lord I lift your name on high",,,,,,,,,,,,,
-Lord I Need You,"Lord, I come, I confess
+40,Lord I Need You,"Lord, I come, I confess
 Bowing here I find my rest
 Without You I fall apart
 You're the One that guides my heart","Lord, I need You, oh, I need You
@@ -800,11 +809,11 @@ My one defense, my righteousness
 Oh God, how I need You","You're my one defense, 
 My righteousness
 Oh God, how I need You",,,,,,,,
-Making Melody,"Making Melody in my Heart
+41,Making Melody,"Making Melody in my Heart
 Making Melody in my Heart
 Making Melody in my Heart
 Unto the King of Kings",,,,,,,,,,,,,,
-Mighty to Save,"Well, everyone needs compassion
+42,Mighty to Save,"Well, everyone needs compassion
 A love that's never failing
 But let mercy fall on me","Well everyone needs 
 Forgiveness
@@ -830,14 +839,14 @@ He rose and conquered the grave
 Jesus conquered the grave","Shine your light and let the whole world see
 We're singing for the glory of the risen King
 Jesus",,,,,,
-"More Love, More Power","More Love, More Power,
+43,"More Love, More Power","More Love, More Power,
 More of you in my life
 More Love, More Power,
 More of you in my life","And I will worship you with all of my heart
 And I will worship you with all of my mind
 And I will worship you with all of my strength
 For you are my God",,,,,,,,,,,,,
-My Jesus,"My Jesus, My Saviour,
+44,My Jesus,"My Jesus, My Saviour,
 Lord there is no one like you,
 All of my days, I want to praise
 The wonders of 
@@ -851,14 +860,14 @@ At the sound of your name","I sing for joy at the work of your hands,
 Forever I'll love you, forever I'll stand
 Nothing compares to the
 promise I have in You",,,,,,,,,,,
-My Life is in You,"My life is in You, Lord, 
+45,My Life is in You,"My life is in You, Lord, 
 My strength is in You, Lord
 My hope is in You, Lord, 
 In You, it's in You","I will praise You with all of my life
 I will praise You with all of my strength
 With all of my life, With all of my strength
 All of my hope is in You",,,,,,,,,,,,,
-My Lighthouse,"In my wrestling and in my doubts
+46,My Lighthouse,"In my wrestling and in my doubts
 In my failures You won't walk out
 Your great love will lead me through
 You are the peace in my troubled sea","In the silence, You won't let go
@@ -883,7 +892,7 @@ You will carry me safe to shore","Fire before us,
 You're the brightest
 You will lead us 
 through the storms",,,,,,,
-Oceans,"You call me out 
+47,Oceans,"You call me out 
 upon the waters
 The great unknown 
 where feet may fail","And there I find You in the mystery
@@ -906,7 +915,7 @@ In the presence of my Savior","I will call upon Your name
 Keep my eyes above the waves
 My soul will rest in Your embrace
 I am Yours and You are mine",,,,,,
-"One Bread, One Body","One Bread, One Body
+48,"One Bread, One Body","One Bread, One Body
 One Lord of all,
 One cup of Blessing
 Which we Bless","And We, Though Many
@@ -921,7 +930,7 @@ Which we Bless","And We, Though Many
 Throughout the Earth
 We are one Body in this one
 Lord",,,,,,,,,,
-One Thing Remains,"Higher than the mountains 
+49,One Thing Remains,"Higher than the mountains 
 that I face
 Stronger than the power 
 of the grave","Constant in the trial and the change
@@ -942,7 +951,7 @@ Separate my heart
 From your great love","Your love never fails 
 Never gives up
 Never runs out on me",,,,,,,
-One Way Jesus,"I lay my life down at your feet
+50,One Way Jesus,"I lay my life down at your feet
 Cause you're the only one I need
 I turn to You and 
 You are always there","In troubled times, 
@@ -963,7 +972,7 @@ We live by faith and not by sight for You
 We're living all for You","One way, Jesus, 
 You're the only one 
 that I could live for",,,,,,,
-Open My Eyes Lord,"Open my Eyes, Lord
+51,Open My Eyes Lord,"Open my Eyes, Lord
 Help me to see your face
 Open my Eyes, Lord
 Help me to See","Open my Ears, Lord
@@ -981,7 +990,7 @@ In places we’ve never known","I live within you Lord
 Deep in your Heart, Lord
 I live within you
 Rest now in me",,,,,,,,,
-Open the Eyes of my Heart,"Open the eyes of my heart, Lord
+52,Open the Eyes of my Heart,"Open the eyes of my heart, Lord
 Open the eyes of my heart
 I want to see You
 I want to see You","To see You high and lifted up
@@ -991,7 +1000,7 @@ As we sing holy, holy, holy","Holy, holy, holy
 We cry holy, holy, holy
 You are holy, holy, holy
 I want to see you",,,,,,,,,,,,
-Our God is Greater,"Water You turned into wine
+53,Our God is Greater,"Water You turned into wine
 Opened the eyes of the blind
 There's no one like you
 None like you","Into the darkness You shine
@@ -1014,7 +1023,7 @@ Our God, Our God","And if Our God is for us,
 Then who could ever stop us?
 And if our God is with us, 
 Then what can stand against?",,,,,,,,,
-Our Supper Invitation,"Take of my Bread and eat 
+54,Our Supper Invitation,"Take of my Bread and eat 
 Drink my new wine
 Take of my life and live,
 Branch of my vine","Let me befriend you now 
@@ -1036,7 +1045,7 @@ That love, has its will","Take of my Bread and eat
 Drink my new wine
 Take of my Life and live
 Branch of my vine",,,,,,,,
-Pharaoh Pharaoh,"Pharaoh Pharoah
+55,Pharaoh Pharaoh,"Pharaoh Pharoah
 Ohh Baby
 Let my people go
 Aha Aha","Well, the burning bush told me just the other day
@@ -1055,7 +1064,7 @@ Aha Aha","Well, that's the story of the stubborn goat
 Pharaoh should've known that chariots don't float
 The lesson is simple, it's easy to find
 When God says, ‘GO’ you had better mind",,,,,,,,,
-Pour Out Your Spirit,"Pour out your Spirit
+56,Pour Out Your Spirit,"Pour out your Spirit
 Pour out your Spirit
 Pour out your Spirit on us
 Jesus","Spirit move in your temple
@@ -1063,7 +1072,7 @@ Spirit move in our lives
 Spirit move we are calling
 Spirit move we are here
 ",,,,,,,,,,,,,
-Power of Your Love,"Lord, I come to You
+57,Power of Your Love,"Lord, I come to You
 Let my heart be changed, renewed
 Flowing from the grace
 That I found in You","Lord, I've come to know
@@ -1093,7 +1102,7 @@ I'll rise up like the eagle
 And I will soar with You
 Your Spirit leads me on
 In the power of Your love",,,,,,
-Purify My Heart,"Purify my heart, 
+58,Purify My Heart,"Purify my heart, 
 Let me be as Gold
 And precious Silver
 Purify my heart,
@@ -1114,7 +1123,7 @@ Set apart for you Lord
 ","I choose to be Holy
 Set apart for you my Master
 Ready to do your Will",,,,,,,,,
-Receive the Power,"Every nation, every tribe
+59,Receive the Power,"Every nation, every tribe
 Come together to worship You
 In Your presence we delight
 We will follow to the ends of the earth","Alleluia, Alleluia 
@@ -1139,7 +1148,7 @@ Receive the Power
 From the Holy Spirit
  Alleluia, Alleluia
 Receive the Power to be a light unto the world",,,,,,,,
-Romans 16:19,"Romans 16:19 Says
+60,Romans 16:19,"Romans 16:19 Says
 
 Be excellent,
 At what is Good,
@@ -1148,7 +1157,7 @@ Of evil","And the God of peace
 Will soon crush Satan
 And God will crush him
 Underneath your feet",,,,,,,,,,,,,
-Sanctify Me,"Sanctify me Oh God
+61,Sanctify Me,"Sanctify me Oh God
 Cleanse my body, 
 Mind and Soul
 Purify me and make me whole","Help me to put off my old self
@@ -1170,7 +1179,7 @@ And the height of Your love Lord","Sanctify me Oh God
 Cleanse my body, 
 Mind and Soul
 Purify me and make me whole",,,,,,,,
-Seek Ye First,"Seek ye first the Kingdom of God,
+62,Seek Ye First,"Seek ye first the Kingdom of God,
 And his righteousness,
 And all these things shall be added onto you..
 Allelu, Alleluia!","Al-le-lu-ia,
@@ -1189,14 +1198,14 @@ Allelu, Alleluia!","Al-le-lu-ia,
 Al-le-lu-ia,
 Al-le-lu-ia,
 Al-le-lu.. Al-le-lu-ia",,,,,,,,,
-Set A Fire,"So set a fire down in my soul
+63,Set A Fire,"So set a fire down in my soul
 That I can't contain 
 That I can't control
 I want more of You, God
 I want more of You, God","No place I would rather be
 Than here in Your Love
 Here in Your Love",,,,,,,,,,,,,
-Shine Jesus Shine,"Lord, the light of your love is shining
+64,Shine Jesus Shine,"Lord, the light of your love is shining
 In the midst of the darkness, shining
 Jesus, Light of the world, shine upon us","Set us free by the truth 
 You now bring us
@@ -1228,7 +1237,7 @@ Set our hearts on fire","Flow, river, flow
 Flood the nations with grace and mercy
 Send forth your word
 Lord, and let there be light",,,
-Shout to the Lord,"My Jesus, my Saviour
+65,Shout to the Lord,"My Jesus, my Saviour
 Lord there is none like You
 All of my days I want to praise
 The wonders of Your mighty love","My comfort, my shelter
@@ -1241,7 +1250,7 @@ At the sound of Your name","I sing for joy at the work of Your hand
 Forever I'll love You, forever I'll stand
 Nothing compares to the promise I have
 In You",,,,,,,,,,,
-Shout to the North,"Men of faith rise up and sing
+66,Shout to the North,"Men of faith rise up and sing
 Of the great and glorious King
 You are strong when you feel weak
 In your brokenness complete","Shout to the North and the South
@@ -1267,7 +1276,7 @@ By His grace again we'll fly","Shout to the North and the South
 Sing to the East and the West
 Jesus is savior to all
 Lord of heaven and earth",,,,,,,
-Spirit of God,"Spirit of God, come down
+67,Spirit of God,"Spirit of God, come down
 Spirit of God, rain down
 Spirit of God, come into my life
 Spirit of God, rain down","Let your fire fall on me
@@ -1278,7 +1287,7 @@ Down, rain down
 In my life Lord
 Rain down, down rain
 Spirit of God",,,,,,,,,,,,
-Still,"Hide me now
+68,Still,"Hide me now
 Under your wings
 Cover me
 Within your mighty hand","When the Oceans Rise
@@ -1297,7 +1306,7 @@ Above the Storm","Father, You are King
 Over the Flood
 I will be still
 Know you are God",,,,,,,,,
-"Thank You, Lord","I come before You today
+69,"Thank You, Lord","I come before You today
 And there's just one thing that I want to say
 Thank You Lord
 Thank You Lord","For all You've given to me
@@ -1324,7 +1333,7 @@ I just wanna thank You Lord
 Thank You Lord
 I just wanna thank You Lord
 Thank You Lord",,,,,,,
-This I Believe,"Our Father everlasting
+70,This I Believe,"Our Father everlasting
 The all creating One
 God Almighty
 Through Your Holy Spirit
@@ -1367,7 +1376,7 @@ Our God is three in one","I believe in the resurrection
 That we will rise again
 For I believe in 
 The name of Jesus",,
-This is How we Overcome,"Your light broke through my night
+71,This is How we Overcome,"Your light broke through my night
 Restored exceeding joy
 Your grace fell like the rain
 And made this desert live","You have turned my 
@@ -1391,7 +1400,7 @@ This is how we overcome","You have turned my
 Mourning into dancing
 You have turned my 
 Sorrow into joy",,,,,,,,
-This is Your House,"As we gather in this place today
+72,This is Your House,"As we gather in this place today
 Holy Spirit come and have 
 Your way 
 Have Your way","As we lay aside our own desires
@@ -1419,7 +1428,7 @@ We welcome You, Lord,
 We welcome You
 This is Your house, Your home
 We welcome You today",,,,,,,
-This Little Light of Mine,"This Little Light Of Mine
+73,This Little Light of Mine,"This Little Light Of Mine
 I'm gonna let it shine","Let it shine
 Let it shine
 Let it shine","On Monday he gave me 
@@ -1434,7 +1443,7 @@ just what to say","This Little Light Of Mine
 I'm gonna let it shine","Let it shine
 Let it shine
 Let it shine",,,,,,,,,
-Welcome Holy Spirit,"Welcome Holy Spirit
+74,Welcome Holy Spirit,"Welcome Holy Spirit
 We are in Your presence
 Fill us with Your power
 Live inside of me","You’re the Living Water
@@ -1444,7 +1453,7 @@ Take complete control","Welcome Holy Spirit
 We are in Your presence
 Fill us with Your power
 Live inside of me",,,,,,,,,,,,
-What a Beautiful Name,"You were the Word at the beginning
+75,What a Beautiful Name,"You were the Word at the beginning
 One With God 
 the Lord Most High
 Your hidden glory in creation
@@ -1474,7 +1483,7 @@ The Name of Jesus Christ my King","What a powerful Name it is
 Nothing compares to this
 What a powerful Name it is
 The Name of Jesus",,,,,
-Who Gives the Faith,"Who gives the faith, 
+76,Who Gives the Faith,"Who gives the faith, 
 For the fa-fa-faith
 Who gives the love, 
 For the love","Who gives the hope, 
@@ -1486,7 +1495,7 @@ For He lives in me
 And He died for you and me Oh
 
 Dip Dip Dadada Dip Dip",,,,,,,,,,,,
-Yes Lord,"I'm trading my sorrows
+77,Yes Lord,"I'm trading my sorrows
 I'm trading my shame
 I'm laying them down for the joy of the lord","I'm trading my sickness
 I'm trading my pain
@@ -1501,7 +1510,7 @@ I am blessed beyond the curse
 For his promise will endure","That his joy's gonna be my strength
 Though the sorrow may last for the night
 His joy comes with the morning",,,,,,,,,,
-You are Holy,"You are Holy, Holy
+78,You are Holy,"You are Holy, Holy
 Are you Lord God Almighty
 Worthy is the Lamb
 Worthy is the Lamb","You are Holy, Holy
@@ -1509,7 +1518,7 @@ Are you Lord God Almighty
 Worthy is the Lamb
 Worthy is the Lamb
 Amen",,,,,,,,,,,,,
-You are Mine,"I will come to you in the silence
+79,You are Mine,"I will come to you in the silence
 I will lift you from all your fear
 You will hear My voice
 I claim you as My choice
@@ -1536,7 +1545,7 @@ I have called you each by name
 Come and follow Me
 I will bring you home
 I love you and you are mine",,,,,,,,
-You are my All in All,"You are my strength when I am weak
+80,You are my All in All,"You are my strength when I am weak
 You are the treasure that I seek
 You are my all in all","Seeking You as a precious jewel
 Lord, to give up I'd be a fool
@@ -1551,7 +1560,7 @@ You are my all in all","Jesus, Lamb of God
 Worthy is Your name
 Jesus, Lamb of God
 Worthy is Your name",,,,,,,,,
-Your Grace is Enough,"Great is Your faithfulness oh God
+81,Your Grace is Enough,"Great is Your faithfulness oh God
 You wrestle with the sinner's heart
 You lead us by still waters in to mercy
 And nothing can keep us apart","So remember Your people

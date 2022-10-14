@@ -215,6 +215,7 @@ def main():
     try: 
         url = f'https://docs.google.com/spreadsheets/d/1P3Qu1EQLgcQYWSZQwjY5OWmEnnJMvSSgLkasa6rMC6E/gviz/tq?tqx=out:csv'
         df = pd.read_csv(url)
+        df.to_csv(database_path)
     except:
         df = pd.read_csv(database_path)
 

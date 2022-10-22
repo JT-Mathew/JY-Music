@@ -90,6 +90,6 @@ verse_fontSize_lines5 = 60
 verse_fontSize_lines6 = 56
 verse_fontSize_lines7 = 51
 #characterLimit based on line count
-verse_charLimit_lines5 = 30
+verse_charLimit_lines5 = 33
 verse_charLimit_lines6 = 33
 verse_charLimit_lines7 = 38

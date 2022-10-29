@@ -142,6 +142,19 @@ def process_Limit(line, limit):
         break
     return tempName
 
+#cuts off a title and adds spacing in indexLimit
+def index_Limit(line, limit):
+    tempName = line
+    index1 = line.splitlines()
+    if len(index1) >= 2:
+        tempName = index1[0]+ ' ' + index1[1]
+    
+    while len(tempName) > limit:
+        index2 = tempName[:limit].rindex(' ')
+        tempName = tempName[:index2]
+        break
+    return tempName
+
 #removes nan
 def clean_Database(df):
     fullDatabase = df.values.tolist()
@@ -195,14 +208,14 @@ def populate_Index_Slide(pres, indexSlideIndex, indexListLeft, indexListTop, ind
                 index_song_shape_text = add_Shape_Text(index_song_shape, indexList_VAlign, indexList_fontName, indexList_fontSize, indexList_HAlign)
 
                 try:
+                    cutTitle = index_Limit(chosenSongs[indexIndex], indexList_limit)
                     add_link(pres, index_song_shape, index[indexIndex])
-
                     if indexIndex <9:
-                        index_song_shape_text.text = str(indexIndex + 1) + '.    ' + chosenSongs[indexIndex]
+                        index_song_shape_text.text = str(indexIndex + 1) + '.    ' + cutTitle
                     elif indexIndex <99:
-                        index_song_shape_text.text = str(indexIndex + 1) + '.  ' + chosenSongs[indexIndex]
+                        index_song_shape_text.text = str(indexIndex + 1) + '.  ' + cutTitle
                     else:
-                        index_song_shape_text.text = str(indexIndex + 1) + '.' + chosenSongs[indexIndex]
+                        index_song_shape_text.text = str(indexIndex + 1) + '.' + cutTitle
                 except:
                     pass
 

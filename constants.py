@@ -64,6 +64,7 @@ indexList_left = [Cm(2.48), Cm(17.08)]
 indexList_top = [Cm(3.55), Cm(4.77), Cm(6), Cm(7.23), Cm(8.45), Cm(9.68), Cm(10.9), Cm(12.13), Cm(13.36), Cm(14.58)]
 indexList_width = Cm(14.3)
 indexList_height = Cm(1.04)
+indexList_limit = 28
 
 #songNameSlide constants
 songTitles_fontName = 'Calibri Light (Headings)'

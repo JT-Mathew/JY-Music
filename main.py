@@ -226,7 +226,7 @@ def main():
     #pull from database else read from file
     df = pd.read_csv(database_path)
     try: 
-        #url = f'https://docs.google.com/spreadsheets/d/1P3Qu1EQLgcQYWSZQwjY5OWmEnnJMvSSgLkasa6rMC6E/gviz/tq?tqx=out:csv'
+        url = f'https://docs.google.com/spreadsheets/d/1P3Qu1EQLgcQYWSZQwjY5OWmEnnJMvSSgLkasa6rMC6E/gviz/tq?tqx=out:csv'
         df = pd.read_csv(url)
         df.to_csv(database_path, index=False)
     except:

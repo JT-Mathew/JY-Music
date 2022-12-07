@@ -86,8 +86,7 @@ def checkLineCount(splitPara, count, limit):
 
 #adds a jy icon link
 def add_hyper_jy(pres, slide, link):
-    pic = slide.shapes.add_picture(jy_icon_path, norm_JYIcon_left, 
-                                    norm_JYIcon_top, norm_JYIcon_height)
+    pic = slide.shapes.add_picture(jy_icon_path, norm_JYIcon_left, norm_JYIcon_top, norm_JYIcon_height)
     add_link(pres, pic, link)
 
 #adds a link to a shape
@@ -174,7 +173,7 @@ def build_Title_Slide(pres, slide_register, presentationName):
     subBoxText = add_Text_Frame(titleSlide, subTitle_left, subTitle_top, subTitle_width, subTitle_height, subTitle_VAlign)
     add_Heading(subBoxText, subTitle_fontName, subTitle_fontSize, subTitle_lineSpacing, subTitle_HAlign, subTitle_text)
 
-    pic = titleSlide.shapes.add_picture(jy_icon_path, title_JYIcon_left, title_JYIcon_top, title_JYIcon_height)
+    titleSlide.shapes.add_picture(jy_icon_path, title_JYIcon_left, title_JYIcon_top, title_JYIcon_height)
 
 #builds the Index Slides
 def build_Index_Slide(pres, slide_register, indexSlideIndex):
@@ -264,7 +263,7 @@ def main():
     build_Title_Slide(pr1, slide1_register, presentationName)
 
     #Creates Empty Index Slides
-    for x in range(indexPages):
+    for _ in range(indexPages):
         build_Index_Slide(pr1, slide1_register, indexSlide_index)
 
     #Creates Song and Verse Slides

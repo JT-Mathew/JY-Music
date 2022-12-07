@@ -102,7 +102,7 @@ class Application(Frame):
         frame_left.grid(row=0, column=0, sticky="ns")
         frame_right.grid(row=0, column=1, sticky="ns")
         frame_bottom.grid(row=1, sticky="ns")
-        
+
         self.updateList()
         self.updateList2()
 

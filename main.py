@@ -13,25 +13,25 @@ def addPara(textBoxText, para):
     newPara = []
     fontSize = verse_fontSize_lines5
     characterLimit = verse_charLimit_lines5
-    
+
     if len(splitPara) == 6:
         fontSize = verse_fontSize_lines6
         characterLimit = verse_charLimit_lines6
     elif len(splitPara) > 6:
         fontSize = verse_fontSize_lines7
         characterLimit = verse_charLimit_lines7
-    
+
     if counter < 6:
         counter = lineCount
         counter = checkLineCount(splitPara, counter, verse_charLimit_lines5)
 
         if counter >= 6:
             counter = 6
-        
+
     if counter == 6:
         counter = lineCount
         counter = checkLineCount(splitPara, counter, verse_charLimit_lines6)
-        
+
         if counter > 6:
             counter = 7
         else:
@@ -46,7 +46,7 @@ def addPara(textBoxText, para):
     for line in splitPara:
         line = process_Limit(line, characterLimit)
         newPara.append(line)
-    
+
     splitPara = newPara
 
     count = 0
@@ -86,7 +86,8 @@ def checkLineCount(splitPara, count, limit):
 
 #adds a jy icon link
 def add_hyper_jy(pres, slide, link):
-    pic = slide.shapes.add_picture(jy_icon_path, norm_JYIcon_left, norm_JYIcon_top, norm_JYIcon_height)
+    pic = slide.shapes.add_picture(jy_icon_path, norm_JYIcon_left, 
+                                    norm_JYIcon_top, norm_JYIcon_height)
     add_link(pres, pic, link)
 
 #adds a link to a shape
@@ -100,7 +101,7 @@ def add_Text_Frame(slide, left, top, width, height, vAlign):
     textBox = slide.shapes.add_textbox(left, top, width, height)
     textFrame = textBox.text_frame
     textFrame.vertical_anchor = vAlign
-    
+
     return textFrame
 
 #adds a heading to a textFrame
@@ -130,7 +131,7 @@ def add_Shape_Text(shape, vAlign, fontName, fontSize, hAlign):
     indexText.font.name = fontName
     indexText.font.size = Pt(fontSize)
     indexText.alignment = hAlign
-    
+
     return indexText
 
 #processes a string through a characterlimit
@@ -148,7 +149,7 @@ def index_Limit(line, limit):
     index1 = line.splitlines()
     if len(index1) >= 2:
         tempName = index1[0]+ ' ' + index1[1]
-    
+
     while len(tempName) > limit:
         index2 = tempName[:limit].rindex(' ')
         tempName = tempName[:index2]
@@ -187,13 +188,13 @@ def build_Index_Slide(pres, slide_register, indexSlideIndex):
 def build_Song_Title_Slide(pres, slide_register, hyperIndex, presIndex, songName):
     titleSlide = pres.slides.add_slide(slide_register)
     songTitleTF = add_Text_Frame(titleSlide, songTitles_left, songTitles_top, songTitles_width, songTitles_height, songTitles_VAlign)
-    add_Heading(songTitleTF, songTitles_fontName, songTitles_fontSize, songTitles_lineSpacing, songTitles_HAlign, songName)    
+    add_Heading(songTitleTF, songTitles_fontName, songTitles_fontSize, songTitles_lineSpacing, songTitles_HAlign, songName)
     add_hyper_jy(pres, titleSlide, hyperIndex)
     presIndex.append(pres.slides.index(titleSlide))
 
 #builds the SongVerse Slides
 def build_Song_Verse_Slide(pres, slide_register, hyperIndex, verse):
-    verseSlide = pres.slides.add_slide(slide_register)  
+    verseSlide = pres.slides.add_slide(slide_register)
     verseTf = add_Text_Frame(verseSlide, verse_left, verse_top, verse_width, verse_height, verse_VAlign)
     addPara(verseTf, verse)
     add_hyper_jy(pres, verseSlide, hyperIndex)
@@ -225,7 +226,7 @@ def populate_Index_Slide(pres, indexSlideIndex, indexListLeft, indexListTop, ind
 def main():
     #pull from database else read from file
     df = pd.read_csv(database_path)
-    try: 
+    try:
         url = f'https://docs.google.com/spreadsheets/d/1P3Qu1EQLgcQYWSZQwjY5OWmEnnJMvSSgLkasa6rMC6E/gviz/tq?tqx=out:csv'
         df = pd.read_csv(url)
         df.to_csv(database_path, index=False)
@@ -287,4 +288,3 @@ def main():
 #calls the main method when running the file
 if __name__ == "__main__":
     main()
-

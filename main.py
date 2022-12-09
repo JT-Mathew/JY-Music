@@ -86,7 +86,7 @@ def checkLineCount(splitPara, count, limit):
 
 #adds a jy icon link
 def add_hyper_jy(pres, slide, link):
-    pic = slide.shapes.add_picture(jy_icon_path, norm_JYIcon_left, norm_JYIcon_top, norm_JYIcon_height)
+    pic = slide.shapes.add_picture(jy_icon_path_dark, norm_JYIcon_left, norm_JYIcon_top, norm_JYIcon_height)
     add_link(pres, pic, link)
 
 #adds a link to a shape
@@ -122,7 +122,7 @@ def add_Shape(slide, shapeType, left, top, width, height):
     return shape
 
 #adds a text to a shape
-def add_Shape_Text(shape, vAlign, fontName, fontSize, hAlign):
+def add_Shape_Text(shape, vAlign, fontName, fontSize, hAlign, fontColor):
     textFrame = shape.text_frame
     textFrame.vertical_anchor = vAlign
     indexText = textFrame.paragraphs[0]
@@ -130,6 +130,7 @@ def add_Shape_Text(shape, vAlign, fontName, fontSize, hAlign):
     indexText.font.name = fontName
     indexText.font.size = Pt(fontSize)
     indexText.alignment = hAlign
+    indexText.font.color.rgb = fontColor
 
     return indexText
 
@@ -173,7 +174,7 @@ def build_Title_Slide(pres, slide_register, presentationName):
     subBoxText = add_Text_Frame(titleSlide, subTitle_left, subTitle_top, subTitle_width, subTitle_height, subTitle_VAlign)
     add_Heading(subBoxText, subTitle_fontName, subTitle_fontSize, subTitle_lineSpacing, subTitle_HAlign, subTitle_text)
 
-    titleSlide.shapes.add_picture(jy_icon_path, title_JYIcon_left, title_JYIcon_top, title_JYIcon_height)
+    titleSlide.shapes.add_picture(jy_icon_path_dark, title_JYIcon_left, title_JYIcon_top, title_JYIcon_height)
 
 #builds the Index Slides
 def build_Index_Slide(pres, slide_register, indexSlideIndex):
@@ -199,13 +200,16 @@ def build_Song_Verse_Slide(pres, slide_register, hyperIndex, verse):
     add_hyper_jy(pres, verseSlide, hyperIndex)
 
 #populate the Index Slide List
-def populate_Index_Slide(pres, indexSlideIndex, indexListLeft, indexListTop, index, chosenSongs):
+def populate_Index_Slide(pres, indexSlideIndex, indexListLeft, indexListTop, index, chosenSongs, darkMode):
     indexIndex = 0
     for x in indexSlideIndex:
         for y in indexListLeft:
             for z in indexListTop:
                 index_song_shape = add_Shape(x, indexList_Shape, y, z, indexList_width, indexList_height)
-                index_song_shape_text = add_Shape_Text(index_song_shape, indexList_VAlign, indexList_fontName, indexList_fontSize, indexList_HAlign)
+                if darkMode == 0:
+                    index_song_shape_text = add_Shape_Text(index_song_shape, indexList_VAlign, indexList_fontName, indexList_fontSize, indexList_HAlign, indexList_colorLight)
+                else:
+                    index_song_shape_text = add_Shape_Text(index_song_shape, indexList_VAlign, indexList_fontName, indexList_fontSize, indexList_HAlign, indexList_colorDark)
 
                 try:
                     cutTitle = index_Limit(chosenSongs[indexIndex], indexList_limit)
@@ -250,13 +254,14 @@ def main():
     chosenSongs = Application.song_List
     savePath = Application.filepath
     presentationName = process_Limit(Application.presentationName, title_limit)
+    darkMode = Application.darkMode
 
     #calculate number of Index pages required based on the number of songs chosen
     indexPages = math.ceil(len(chosenSongs)/20)
 
     #EVERYTHING BELOW BUILDS THE PPT
     #Loads presentation theme
-    pr1 = Presentation(presentation_path)
+    pr1 = Presentation(presentation_path_dark)
     slide1_register = pr1.slide_layouts[6]
 
     #Creates Title Slide
@@ -279,7 +284,7 @@ def main():
             build_Song_Verse_Slide(pr1, slide1_register, hyperIndex, verse)
 
     #Updates Index Slides with all the songs added
-    populate_Index_Slide(pr1, indexSlide_index, indexList_left, indexList_top, presIndex, chosenSongs)
+    populate_Index_Slide(pr1, indexSlide_index, indexList_left, indexList_top, presIndex, chosenSongs, darkMode)
 
     if Application.save == 1:
         pr1.save(savePath)

@@ -11,6 +11,7 @@ class Application(Frame):
     filepath = ""
     presentationName = ""
     jy_image_path = os.path.join("extra", "JY-Icon-White.png")
+    darkMode = 1
 
     #Init
     def __init__(self, master=None):

@@ -1,12 +1,13 @@
 from pptx.enum.text import PP_PARAGRAPH_ALIGNMENT, MSO_VERTICAL_ANCHOR
 from pptx.enum.shapes import MSO_SHAPE_TYPE
 from pptx.util import Cm, Pt
+from pptx.dml.color import RGBColor
 import os.path
 
 #os paths
-jy_icon_path = os.path.join("extra", "JY-Icon-White.png")
-database_path = os.path.join("extra", "database.csv")
-presentation_path = os.path.join("extra", "MusicSlidesTemplate.pptx")
+jy_icon_path_dark = os.path.join("resources", "JY-Icon-Dark.png")
+database_path = os.path.join("resources", "database.csv")
+presentation_path_dark = os.path.join("resources", "MusicSlidesTemplateDark.pptx")
 
 #TitleSlide title constants
 title_fontName = 'Calibri Light (Headings)'
@@ -57,6 +58,8 @@ indexHeading_height = Cm(2.13)
 #indexSlide songName constants
 indexList_fontName = 'Calibri (Body)'
 indexList_fontSize = 24
+indexList_colorDark = RGBColor(255, 255, 255)
+indexList_colorLight = RGBColor(0, 0, 0)
 indexList_HAlign = PP_PARAGRAPH_ALIGNMENT.LEFT
 indexList_VAlign = MSO_VERTICAL_ANCHOR.MIDDLE
 indexList_Shape = MSO_SHAPE_TYPE.AUTO_SHAPE

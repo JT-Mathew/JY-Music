@@ -31,6 +31,8 @@ Windows:
 
 	PyInstaller --onefile main.py
 
+	python -m PyInstaller --onefile main.py
+
 2. Copy the resources folder into the dist/main
 3. Double click on main.exe
 4. Copy the main folder out to wherever, name it whatever, zip it up, should work on any windows. 

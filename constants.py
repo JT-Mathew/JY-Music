@@ -19,7 +19,7 @@ presentation_path_white = os.path.join("resources", "TemplateWhite.pptx")
 #font colours
 font_colour_black = RGBColor(200, 200, 200)
 font_colour_dark = RGBColor(255, 255, 255)
-font_colour_light = RGBColor(0, 0, 0)
+font_colour_light = RGBColor(255, 255, 255)
 font_colour_white = RGBColor(40, 40, 40)
 
 #TitleSlide title constants

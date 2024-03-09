@@ -6,7 +6,7 @@ import pandas as pd
 import math
 
 #adds verse to slide
-def addPara(textBoxText, para):
+def addPara(textBoxText, para, fontColour):
     splitPara = para.splitlines()
     lineCount = len(splitPara)
     counter = lineCount
@@ -52,11 +52,11 @@ def addPara(textBoxText, para):
     count = 0
 
     for line in splitPara:
-        addLine(textBoxText, line, count, fontSize)
+        addLine(textBoxText, line, count, fontSize, fontColour)
         count = 1
 
 #adds a line to slide
-def addLine(textBoxText, line, count, fontSize):
+def addLine(textBoxText, line, count, fontSize, fontColour):
     if count == 0:
         textBoxPara = textBoxText.paragraphs[0]
     else:
@@ -74,6 +74,7 @@ def addLine(textBoxText, line, count, fontSize):
     textBoxPara.alignment = PP_PARAGRAPH_ALIGNMENT.CENTER
     textBoxPara.font.name = 'Calibri (Body)'
     textBoxPara.font.size = Pt(fontSize)
+    textBoxPara.font.color.rgb = fontColour
     textBoxPara.text = line
 
 #checks the line count
@@ -104,10 +105,11 @@ def add_Text_Frame(slide, left, top, width, height, vAlign):
     return textFrame
 
 #adds a heading to a textFrame
-def add_Heading(textFrame, fontName, fontSize, lineSpacing, hAlign, text):
+def add_Heading(textFrame, fontName, fontSize, lineSpacing, fontColour, hAlign, text):
     textF_text = textFrame.paragraphs[0]
     textF_text.font.name = fontName
     textF_text.font.size = Pt(fontSize)
+    textF_text.font.color.rgb = fontColour
     textF_text.line_spacing = lineSpacing
     textF_text.alignment = hAlign
 
@@ -122,7 +124,7 @@ def add_Shape(slide, shapeType, left, top, width, height):
     return shape
 
 #adds a text to a shape
-def add_Shape_Text(shape, vAlign, fontName, fontSize, hAlign, fontColor):
+def add_Shape_Text(shape, vAlign, fontName, fontSize, hAlign, fontColour):
     textFrame = shape.text_frame
     textFrame.vertical_anchor = vAlign
     indexText = textFrame.paragraphs[0]
@@ -130,7 +132,7 @@ def add_Shape_Text(shape, vAlign, fontName, fontSize, hAlign, fontColor):
     indexText.font.name = fontName
     indexText.font.size = Pt(fontSize)
     indexText.alignment = hAlign
-    indexText.font.color.rgb = fontColor
+    indexText.font.color.rgb = fontColour
 
     return indexText
 
@@ -166,50 +168,56 @@ def clean_Database(df):
     return fullDatabase
 
 #builds the Title Slide
-def build_Title_Slide(pres, slide_register, presentationName):
+def build_Title_Slide(pres, slide_register, presentationName, fontColour):
     titleSlide = pres.slides.add_slide(slide_register)
     startBoxText = add_Text_Frame(titleSlide, title_left, title_top, title_width, title_height, title_VAlign)
-    add_Heading(startBoxText, title_fontName, title_fontSize, title_lineSpacing, title_HAlign, presentationName)
+    add_Heading(startBoxText, title_fontName, title_fontSize, title_lineSpacing, fontColour, title_HAlign, presentationName)
 
     subBoxText = add_Text_Frame(titleSlide, subTitle_left, subTitle_top, subTitle_width, subTitle_height, subTitle_VAlign)
-    add_Heading(subBoxText, subTitle_fontName, subTitle_fontSize, subTitle_lineSpacing, subTitle_HAlign, subTitle_text)
+    add_Heading(subBoxText, subTitle_fontName, subTitle_fontSize, subTitle_lineSpacing, fontColour, subTitle_HAlign, subTitle_text)
 
     titleSlide.shapes.add_picture(jy_icon_path_dark, title_JYIcon_left, title_JYIcon_top, title_JYIcon_height)
 
 #builds the Index Slides
-def build_Index_Slide(pres, slide_register, indexSlideIndex):
+def build_Index_Slide(pres, slide_register, indexSlideIndex, fontColour):
     indexSlide = pres.slides.add_slide(slide_register)
     indexSlideIndex.append(indexSlide)
     indexTitleTF = add_Text_Frame(indexSlide, indexHeading_left, indexHeading_top, indexHeading_width, indexHeading_height, indexHeading_VAlign)
-    add_Heading(indexTitleTF, indexHeading_fontName, indexHeading_fontSize, indexHeading_lineSpacing, indexHeading_HAlign, indexHeading_text)
+    add_Heading(indexTitleTF, indexHeading_fontName, indexHeading_fontSize, indexHeading_lineSpacing, fontColour, indexHeading_HAlign, indexHeading_text)
     add_hyper_jy(pres, indexSlide, 0)
 
 #builds the SongTitle Slides
-def build_Song_Title_Slide(pres, slide_register, hyperIndex, presIndex, songName):
+def build_Song_Title_Slide(pres, slide_register, hyperIndex, presIndex, songName, fontColour):
     titleSlide = pres.slides.add_slide(slide_register)
     songTitleTF = add_Text_Frame(titleSlide, songTitles_left, songTitles_top, songTitles_width, songTitles_height, songTitles_VAlign)
-    add_Heading(songTitleTF, songTitles_fontName, songTitles_fontSize, songTitles_lineSpacing, songTitles_HAlign, songName)
+    add_Heading(songTitleTF, songTitles_fontName, songTitles_fontSize, songTitles_lineSpacing, fontColour, songTitles_HAlign, songName)
     add_hyper_jy(pres, titleSlide, hyperIndex)
     presIndex.append(pres.slides.index(titleSlide))
 
 #builds the SongVerse Slides
-def build_Song_Verse_Slide(pres, slide_register, hyperIndex, verse):
+def build_Song_Verse_Slide(pres, slide_register, hyperIndex, verse, fontColour):
     verseSlide = pres.slides.add_slide(slide_register)
     verseTf = add_Text_Frame(verseSlide, verse_left, verse_top, verse_width, verse_height, verse_VAlign)
-    addPara(verseTf, verse)
+    addPara(verseTf, verse, fontColour)
     add_hyper_jy(pres, verseSlide, hyperIndex)
 
 #populate the Index Slide List
-def populate_Index_Slide(pres, indexSlideIndex, indexListLeft, indexListTop, index, chosenSongs, darkMode):
+def populate_Index_Slide(pres, indexSlideIndex, indexListLeft, indexListTop, index, chosenSongs, mode):
     indexIndex = 0
     for x in indexSlideIndex:
         for y in indexListLeft:
             for z in indexListTop:
                 index_song_shape = add_Shape(x, indexList_Shape, y, z, indexList_width, indexList_height)
-                if darkMode == 0:
-                    index_song_shape_text = add_Shape_Text(index_song_shape, indexList_VAlign, indexList_fontName, indexList_fontSize, indexList_HAlign, indexList_colorLight)
+                if mode == 'Light':
+                    index_song_shape_text = add_Shape_Text(index_song_shape, indexList_VAlign, indexList_fontName, indexList_fontSize, indexList_HAlign, font_colour_light)
+                elif mode == 'Dark':
+                    index_song_shape_text = add_Shape_Text(index_song_shape, indexList_VAlign, indexList_fontName, indexList_fontSize, indexList_HAlign, font_colour_dark)
+                elif mode == 'Black':
+                    index_song_shape_text = add_Shape_Text(index_song_shape, indexList_VAlign, indexList_fontName, indexList_fontSize, indexList_HAlign, font_colour_black)
+                elif mode == 'White':
+                    index_song_shape_text = add_Shape_Text(index_song_shape, indexList_VAlign, indexList_fontName, indexList_fontSize, indexList_HAlign, font_colour_white)
                 else:
-                    index_song_shape_text = add_Shape_Text(index_song_shape, indexList_VAlign, indexList_fontName, indexList_fontSize, indexList_HAlign, indexList_colorDark)
+                    index_song_shape_text = add_Shape_Text(index_song_shape, indexList_VAlign, indexList_fontName, indexList_fontSize, indexList_HAlign, font_colour_dark)
 
                 try:
                     cutTitle = index_Limit(chosenSongs[indexIndex], indexList_limit)
@@ -254,22 +262,43 @@ def main():
     chosenSongs = Application.song_List
     savePath = Application.filepath
     presentationName = process_Limit(Application.presentationName, title_limit)
-    darkMode = Application.darkMode
+    mode = Application.mode
+
+    fontColour = font_colour_dark
+
+    if mode == 'Black':
+        presentation_path = presentation_path_black
+        fontColour = font_colour_black
+    elif mode == 'Dark':
+        presentation_path = presentation_path_dark
+        fontColour = font_colour_dark
+    elif mode == 'Light':
+        presentation_path = presentation_path_light
+        fontColour = font_colour_light
+    elif mode == 'White':
+        presentation_path = presentation_path_white
+        fontColour = font_colour_white
+    elif mode == 'Old':
+        presentation_path = presentation_path_old
+        fontColour = font_colour_dark
+    else:
+        presentation_path = presentation_path_old
+        fontColour = font_colour_dark
 
     #calculate number of Index pages required based on the number of songs chosen
     indexPages = math.ceil(len(chosenSongs)/20)
 
     #EVERYTHING BELOW BUILDS THE PPT
     #Loads presentation theme
-    pr1 = Presentation(presentation_path_dark)
+    pr1 = Presentation(presentation_path)
     slide1_register = pr1.slide_layouts[6]
 
     #Creates Title Slide
-    build_Title_Slide(pr1, slide1_register, presentationName)
+    build_Title_Slide(pr1, slide1_register, presentationName, fontColour)
 
     #Creates Empty Index Slides
     for _ in range(indexPages):
-        build_Index_Slide(pr1, slide1_register, indexSlide_index)
+        build_Index_Slide(pr1, slide1_register, indexSlide_index, fontColour)
 
     #Creates Song and Verse Slides
     for song in chosenSongs:
@@ -278,13 +307,13 @@ def main():
         songIndex = fullSongList.index(song)
         lyrics = allSongs[songIndex][1:]
 
-        build_Song_Title_Slide(pr1, slide1_register, hyperIndex, presIndex, songName)
+        build_Song_Title_Slide(pr1, slide1_register, hyperIndex, presIndex, songName, fontColour)
 
         for verse in lyrics:
-            build_Song_Verse_Slide(pr1, slide1_register, hyperIndex, verse)
+            build_Song_Verse_Slide(pr1, slide1_register, hyperIndex, verse, fontColour)
 
     #Updates Index Slides with all the songs added
-    populate_Index_Slide(pr1, indexSlide_index, indexList_left, indexList_top, presIndex, chosenSongs, darkMode)
+    populate_Index_Slide(pr1, indexSlide_index, indexList_left, indexList_top, presIndex, chosenSongs, mode)
 
     if Application.save == 1:
         pr1.save(savePath)

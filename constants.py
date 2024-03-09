@@ -5,9 +5,22 @@ from pptx.dml.color import RGBColor
 import os.path
 
 #os paths
-jy_icon_path_dark = os.path.join("resources", "JY-Icon-Dark.png")
 database_path = os.path.join("resources", "database.csv")
-presentation_path_dark = os.path.join("resources", "MusicSlidesTemplateDark.pptx")
+
+jy_icon_path_dark = os.path.join("resources", "JY-Icon-Dark.png")
+jy_icon_path_dark = os.path.join("resources", "JY-Icon-Light.png")
+
+presentation_path_black = os.path.join("resources", "TemplateBlack.pptx")
+presentation_path_dark = os.path.join("resources", "TemplateDark.pptx")
+presentation_path_old = os.path.join("resources", "TemplateOld.pptx")
+presentation_path_light = os.path.join("resources", "TemplateLight.pptx")
+presentation_path_white = os.path.join("resources", "TemplateWhite.pptx")
+
+#font colours
+font_colour_black = RGBColor(200, 200, 200)
+font_colour_dark = RGBColor(255, 255, 255)
+font_colour_light = RGBColor(0, 0, 0)
+font_colour_white = RGBColor(40, 40, 40)
 
 #TitleSlide title constants
 title_fontName = 'Calibri Light (Headings)'
@@ -58,8 +71,8 @@ indexHeading_height = Cm(2.13)
 #indexSlide songName constants
 indexList_fontName = 'Calibri (Body)'
 indexList_fontSize = 24
-indexList_colorDark = RGBColor(255, 255, 255)
-indexList_colorLight = RGBColor(0, 0, 0)
+indexList_colourDark = RGBColor(255, 255, 255)
+indexList_colourLight = RGBColor(0, 0, 0)
 indexList_HAlign = PP_PARAGRAPH_ALIGNMENT.LEFT
 indexList_VAlign = MSO_VERTICAL_ANCHOR.MIDDLE
 indexList_Shape = MSO_SHAPE_TYPE.AUTO_SHAPE

@@ -11,7 +11,7 @@ class Application(Frame):
     filepath = ""
     presentationName = ""
     jy_image_path = os.path.join("extra", "JY-Icon-White.png")
-    darkMode = 1
+    mode = "Old"
 
     #Init
     def __init__(self, master=None):
@@ -25,8 +25,8 @@ class Application(Frame):
     def createWindow(self):
         # create a Tk root window
 
-        w = 500 # width for the Tk window
-        h = 500 # height for the Tk window
+        w = 550 # width for the Tk window
+        h = 550 # height for the Tk window
 
         # get screen width and height
         ws = Application.window.winfo_screenwidth() # width of the screen, to determine positioning of window
@@ -46,6 +46,7 @@ class Application(Frame):
         frame_top = Frame(Application.window, bd=2)
         frame_left = Frame(frame_top, bd=2)
         frame_right = Frame(frame_top, bd=2)
+        frame_middle = Frame(Application.window, bd=2)
         frame_bottom = Frame(Application.window, bd=2)
 
         #img = ImageTk.PhotoImage(Image.open(Application.jy_image_path))
@@ -86,15 +87,37 @@ class Application(Frame):
         self.removeSongBtn.grid(row=2, column=0, padx=10, pady=3)
         self.removeBtn.grid(row=3, column=0, padx=10, pady=8)
 
+        
+        modes = [(1,"Black"), (2,"Dark"), (3,"Old"), (4,"Light"), (5,"White")]
+        
+
+        #middle bottom row
+        self.v = IntVar()
+        self.v.set(3)
+
+        self.modeLbl = Label(frame_middle, text="Mode: ")
+        self.blackButton = Radiobutton(frame_middle, text="Black", variable=self.v, command=self.saveMode, value=1)
+        self.darkButton = Radiobutton(frame_middle, text="Dark", variable=self.v, command=self.saveMode, value=2)
+        self.oldButton = Radiobutton(frame_middle, text="Old", variable=self.v, command=self.saveMode, value=3)
+        self.lightButton = Radiobutton(frame_middle, text="Light", variable=self.v, command=self.saveMode, value=4)
+        self.whiteButton = Radiobutton(frame_middle, text="White", variable=self.v, command=self.saveMode, value=5)
+        
+        self.modeLbl.grid(row=0, column=0, padx=10, pady=3)
+        self.blackButton.grid(row=0, column=1, padx=10, pady=3)
+        self.darkButton.grid(row=0, column=2, padx=10, pady=3)
+        self.oldButton.grid(row=0, column=3, padx=10, pady=3)
+        self.lightButton.grid(row=0, column=4, padx=10, pady=3)
+        self.whiteButton.grid(row=0, column=5, padx=10, pady=3)
+
         #bottom row
         self.saveLbl = Label(frame_bottom, text="Title: ")
         self.saveEntry = Entry(frame_bottom, width=13)
         self.saveEntry.insert(END, 'JY Music')
         self.saveBtn = Button(frame_bottom, text="Save Slides", command=self.getSongList)
 
-        self.saveLbl.grid(row=0, column=0, padx=10, pady=3)
-        self.saveEntry.grid(row=0, column=1, padx=10, pady=3)
-        self.saveBtn.grid(row=0, column=2, padx=10, pady=8)
+        self.saveLbl.grid(row=1, column=1, padx=10, pady=3)
+        self.saveEntry.grid(row=1, column=2, padx=10, pady=3)
+        self.saveBtn.grid(row=1, column=3, padx=10, pady=8)
 
         #frames
         frame_top.grid(row=0, sticky="ns")
@@ -102,10 +125,23 @@ class Application(Frame):
         frame_right_top.grid(row=0, column=0, sticky="w")
         frame_left.grid(row=0, column=0, sticky="ns")
         frame_right.grid(row=0, column=1, sticky="ns")
-        frame_bottom.grid(row=1, sticky="ns")
+        frame_middle.grid(row=1, sticky="ns")
+        frame_bottom.grid(row=2, sticky="ns")
 
         self.updateList()
         self.updateList2()
+
+    def saveMode(self):
+        if self.v.get() == 1:
+            Application.mode = "Black"
+        elif self.v.get() == 2:
+            Application.mode = "Dark"
+        elif self.v.get() == 3:
+            Application.mode = "Old"
+        elif self.v.get() == 4:
+            Application.mode = "Light"
+        elif self.v.get() == 5:
+            Application.mode = "White"
 
     def updateList(self, *args):
         search_term = self.search_var.get()

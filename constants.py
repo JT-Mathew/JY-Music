@@ -12,7 +12,7 @@ jy_icon_path_dark = os.path.join("resources", "JY-Icon-Light.png")
 
 presentation_path_black = os.path.join("resources", "TemplateBlack.pptx")
 presentation_path_dark = os.path.join("resources", "TemplateDark.pptx")
-presentation_path_old = os.path.join("resources", "TemplateOld.pptx")
+presentation_path_classic = os.path.join("resources", "TemplateOld.pptx")
 presentation_path_light = os.path.join("resources", "TemplateLight.pptx")
 presentation_path_white = os.path.join("resources", "TemplateWhite.pptx")
 

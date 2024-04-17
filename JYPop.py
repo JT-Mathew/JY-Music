@@ -11,7 +11,10 @@ class Application(Frame):
     filepath = ""
     presentationName = ""
     jy_image_path = os.path.join("extra", "JY-Icon-White.png")
-    mode = "Old"
+    mode = "Dark"
+    onlineMode = 0
+    onlineText = "Connected to Online Songbank"
+    offlineText = "Offline - Using Local Songbank"
 
     #Init
     def __init__(self, master=None):
@@ -26,7 +29,7 @@ class Application(Frame):
         # create a Tk root window
 
         w = 550 # width for the Tk window
-        h = 550 # height for the Tk window
+        h = 570 # height for the Tk window
 
         # get screen width and height
         ws = Application.window.winfo_screenwidth() # width of the screen, to determine positioning of window
@@ -46,6 +49,7 @@ class Application(Frame):
         frame_top = Frame(Application.window, bd=2)
         frame_left = Frame(frame_top, bd=2)
         frame_right = Frame(frame_top, bd=2)
+        frame_middle_top = Frame(Application.window, bd=2)
         frame_middle = Frame(Application.window, bd=2)
         frame_bottom = Frame(Application.window, bd=2)
 
@@ -85,11 +89,21 @@ class Application(Frame):
         self.entry2.grid(row=0, column=1, padx=10, pady=3)
         self.songListBoxTo.grid(row=1, column=0, padx=10, pady=3)
         self.removeSongBtn.grid(row=2, column=0, padx=10, pady=3)
-        self.removeBtn.grid(row=3, column=0, padx=10, pady=8)
+        self.removeBtn.grid(row=3, column=0, padx=10, pady=3)
 
         
-        modes = [(1,"Black"), (2,"Dark"), (3,"Old"), (4,"Light"), (5,"White")]
+        modes = [(1,"Black"), (2,"Dark"), (3,"Classic"), (4,"Light"), (5,"White")]
         
+        #middle row
+        if self.onlineMode == 0:
+            onlineStatusText = self.offlineText
+            colour = "red"
+        elif self.onlineMode == 1:
+            onlineStatusText = self.onlineText
+            colour = "green"
+
+        self.modeLbl = Label(frame_middle_top, text=onlineStatusText, fg=colour)
+        self.modeLbl.grid(row=0, column=0, padx=10, pady=3)
 
         #middle bottom row
         self.v = IntVar()
@@ -98,7 +112,7 @@ class Application(Frame):
         self.modeLbl = Label(frame_middle, text="Mode: ")
         self.blackButton = Radiobutton(frame_middle, text="Black", variable=self.v, command=self.saveMode, value=1)
         self.darkButton = Radiobutton(frame_middle, text="Dark", variable=self.v, command=self.saveMode, value=2)
-        self.oldButton = Radiobutton(frame_middle, text="Old", variable=self.v, command=self.saveMode, value=3)
+        self.oldButton = Radiobutton(frame_middle, text="Classic", variable=self.v, command=self.saveMode, value=3)
         self.lightButton = Radiobutton(frame_middle, text="Light", variable=self.v, command=self.saveMode, value=4)
         self.whiteButton = Radiobutton(frame_middle, text="White", variable=self.v, command=self.saveMode, value=5)
         
@@ -117,16 +131,17 @@ class Application(Frame):
 
         self.saveLbl.grid(row=1, column=1, padx=10, pady=3)
         self.saveEntry.grid(row=1, column=2, padx=10, pady=3)
-        self.saveBtn.grid(row=1, column=3, padx=10, pady=8)
+        self.saveBtn.grid(row=1, column=3, padx=10, pady=3)
 
         #frames
-        frame_top.grid(row=0, sticky="ns")
+        frame_top.grid(row=0, sticky="n")
         frame_left_top.grid(row=0, column=0, sticky="w")
         frame_right_top.grid(row=0, column=0, sticky="w")
-        frame_left.grid(row=0, column=0, sticky="ns")
-        frame_right.grid(row=0, column=1, sticky="ns")
-        frame_middle.grid(row=1, sticky="ns")
-        frame_bottom.grid(row=2, sticky="ns")
+        frame_left.grid(row=0, column=0, sticky="n")
+        frame_right.grid(row=0, column=1, sticky="n")
+        frame_middle_top.grid(row=1, sticky="s")
+        frame_middle.grid(row=2, sticky="s")
+        frame_bottom.grid(row=3, sticky="s")
 
         self.updateList()
         self.updateList2()
@@ -137,11 +152,14 @@ class Application(Frame):
         elif self.v.get() == 2:
             Application.mode = "Dark"
         elif self.v.get() == 3:
-            Application.mode = "Old"
+            Application.mode = "Classic"
         elif self.v.get() == 4:
             Application.mode = "Light"
         elif self.v.get() == 5:
             Application.mode = "White"
+
+    def onlineStatus(online):
+        Application.onlineMode = online
 
     def updateList(self, *args):
         search_term = self.search_var.get()

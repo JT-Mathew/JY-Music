@@ -236,13 +236,16 @@ def populate_Index_Slide(pres, indexSlideIndex, indexListLeft, indexListTop, ind
 #main method
 def main():
     #pull from database else read from file
+    online = 0
     df = pd.read_csv(database_path)
     try:
         url = f'https://docs.google.com/spreadsheets/d/1P3Qu1EQLgcQYWSZQwjY5OWmEnnJMvSSgLkasa6rMC6E/gviz/tq?tqx=out:csv'
         df = pd.read_csv(url)
         df.to_csv(database_path, index=False)
+        online = 1
     except:
         df = pd.read_csv(database_path)
+        online = 0
 
     #variables
     allSongs = clean_Database(df)
@@ -255,6 +258,7 @@ def main():
     window.title("JY Music Slides Generator")
     Application.getWindow(window)
     Application.saveSongList(fullSongList)
+    Application.onlineStatus(online)
     app = Application(master=window)
     app.mainloop()
 
@@ -278,11 +282,11 @@ def main():
     elif mode == 'White':
         presentation_path = presentation_path_white
         fontColour = font_colour_white
-    elif mode == 'Old':
-        presentation_path = presentation_path_old
+    elif mode == 'Classic':
+        presentation_path = presentation_path_classic
         fontColour = font_colour_dark
     else:
-        presentation_path = presentation_path_old
+        presentation_path = presentation_path_dark
         fontColour = font_colour_dark
 
     #calculate number of Index pages required based on the number of songs chosen

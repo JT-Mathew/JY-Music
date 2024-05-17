@@ -11,7 +11,7 @@ class Application(Frame):
     filepath = ""
     presentationName = ""
     jy_image_path = os.path.join("extra", "JY-Icon-White.png")
-    mode = "Dark"
+    mode = "Classic"
     onlineMode = 0
     onlineText = "Connected to Online Songbank"
     offlineText = "Offline - Using Local Songbank"
